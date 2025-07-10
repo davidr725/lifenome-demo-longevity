@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Lab Results - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .results-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .lab-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lab-entry {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lab-entry:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            border-color: #8b5cf6;
+        }
+
+        .lab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .lab-info {
+            flex-grow: 1;
+        }
+
+        .lab-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .lab-date {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .lab-provider {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .lab-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-flagged {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-normal {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .flagged-count {
+            font-size: 11px;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .lab-summary {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+
+        .lab-highlights {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .highlight-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .highlight-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .lab-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .view-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .view-btn:hover {
+            background: #7c3aed;
+        }
+
+        .clickable-card-indicator {
+            position: relative;
+        }
+
+        .clickable-card-indicator::after {
+            content: '→';
+            color: #7c3aed;
+            font-weight: 600;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .clickable-card-indicator:hover::after {
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+
+            .lab-header {
+                flex-direction: column;
+                align-items: start;
+                gap: 12px;
+            }
+
+            .lab-highlights {
+                justify-content: center;
+            }
+
+            .highlight-item {
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to My Health</a>
+        
+        <h1>My Lab Results</h1>
+        
+        <p class="description">
+            Your complete history of lab tests, health screenings, and medical examinations. 
+            Click on any test to view detailed results and track changes over time.
+        </p>
+
+        <div class="results-container">
+            <div class="results-header">
+                <h2 class="results-title">Test History</h2>
+                <div class="results-count">9 tests completed</div>
+            </div>
+
+            <div class="lab-timeline">
+                <!-- Most Recent Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Comprehensive Blood Panel</h3>
+                            <div class="lab-date">March 15, 2025</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-flagged">2 Flagged</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">32</div>
+                            <div class="highlight-label">Biomarkers</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">30</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">2</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metabolic Panel -->
+                <div class="lab-entry clickable-card-indicator" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Metabolic Panel</h3>
+                            <div class="lab-date">February 28, 2025</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-flagged">1 Flagged</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">14</div>
+                            <div class="highlight-label">Biomarkers</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">13</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">1</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DNA Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Genetic Health Analysis</h3>
+                            <div class="lab-date">January 10, 2025</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">180</div>
+                            <div class="highlight-label">Genetic Markers</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">15</div>
+                            <div class="highlight-label">Health Risks</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">25</div>
+                            <div class="highlight-label">Traits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Blood Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Annual Physical Blood Work</h3>
+                            <div class="lab-date">December 8, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-normal">Normal</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">18</div>
+                            <div class="highlight-label">Biomarkers</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">18</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">0</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Microbiome Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Gut Microbiome Analysis</h3>
+                            <div class="lab-date">November 22, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-flagged">Low Diversity</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">45</div>
+                            <div class="highlight-label">Bacteria Types</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">6.2</div>
+                            <div class="highlight-label">Diversity Score</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">12</div>
+                            <div class="highlight-label">Recommendations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thyroid Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Thyroid Function Panel</h3>
+                            <div class="lab-date">September 15, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-normal">Normal</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">6</div>
+                            <div class="highlight-label">Hormones</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">6</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">0</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vitamin Test -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Vitamin & Mineral Panel</h3>
+                            <div class="lab-date">June 10, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-flagged">1 Flagged</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">12</div>
+                            <div class="highlight-label">Vitamins</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">11</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">1</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heart Health -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Advanced Cardiac Panel</h3>
+                            <div class="lab-date">March 5, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-normal">Excellent</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">22</div>
+                            <div class="highlight-label">Biomarkers</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">22</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">0</div>
+                            <div class="highlight-label">Flagged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Sensitivity -->
+                <div class="lab-entry" onclick="router.navigateTo('lab-report')">
+                    <div class="lab-header">
+                        <div class="lab-info">
+                            <h3 class="lab-name">Food Sensitivity Test</h3>
+                            <div class="lab-date">January 12, 2024</div>
+                        </div>
+                        <div class="lab-status">
+                            <span class="status-badge status-flagged">3 Sensitivities</span>
+                        </div>
+                    </div>
+                    <div class="lab-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-value">96</div>
+                            <div class="highlight-label">Foods Tested</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">93</div>
+                            <div class="highlight-label">Normal</div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-value">3</div>
+                            <div class="highlight-label">Sensitivities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewLabResults(testId) {
+            console.log('Viewing lab results for:', testId);
+            alert(`Opening detailed results for ${testId}...`);
+        }
+    </script>
+</body>
+</html>

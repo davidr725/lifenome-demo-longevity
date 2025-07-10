@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition & Diet - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .solution-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .solution-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #92400e;
+        }
+
+        .solution-description {
+            font-size: 14px;
+            margin-bottom: 16px;
+            color: #92400e;
+        }
+
+        .program-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .program-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .active-label {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .program-details {
+            margin-bottom: 16px;
+        }
+
+        .program-details ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .program-details li {
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .program-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #8b5cf6;
+            border-bottom-color: #8b5cf6;
+        }
+
+        .tab-btn:hover {
+            color: #8b5cf6;
+        }
+
+        .tab-content {
+            position: relative;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .tab-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .tab-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .data-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .data-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .data-value.optimal {
+            color: #059669;
+        }
+
+        .data-value.attention {
+            color: #dc2626;
+        }
+
+        .data-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .conditions-subsection {
+            margin-bottom: 32px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .condition-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .condition-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .condition-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .condition-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .condition-badge.reported {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .condition-badge.evidence {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .condition-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .condition-impact {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .genetic-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .genetic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .genetic-item:hover {
+            background: #f3f4f6;
+        }
+
+        .genetic-status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .genetic-status.favorable {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .genetic-status.sensitive {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .genetic-status.increased {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .genetic-status.attention {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .biomarkers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+        }
+
+        .biomarker-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .biomarker-value {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .biomarker-value.optimal {
+            color: #059669;
+        }
+
+        .biomarker-value.good {
+            color: #0891b2;
+        }
+
+        .biomarker-value.attention {
+            color: #dc2626;
+        }
+
+        .biomarker-name {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .supplements-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .supplement-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .supplement-header {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .supplement-image {
+            width: 60px;
+            height: 60px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #6b7280;
+            flex-shrink: 0;
+        }
+
+        .supplement-details {
+            flex: 1;
+        }
+
+        .supplement-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .supplement-reason {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .supplement-price {
+            font-weight: 500;
+            color: #059669;
+        }
+
+        .supplement-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .supplement-btn:hover {
+            background: #7c3aed;
+        }
+
+        .clickable-indicator {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .clickable-indicator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 0 6px 10px;
+            border-color: transparent transparent transparent #8b5cf6;
+        }
+
+        .clickable-card-indicator {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .clickable-card-indicator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 12px;
+            border-color: transparent transparent transparent #8b5cf6;
+        }
+
+        .clickable-inline-indicator {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .clickable-inline-indicator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4px 0 4px 6px;
+            border-color: transparent transparent transparent #8b5cf6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .tab-nav {
+                flex-wrap: wrap;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .conditions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .genetic-container {
+                grid-template-columns: 1fr;
+            }
+
+            .biomarkers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <h1>Nutrition & Diet Report</h1>
+
+        <!-- Assessment Summary -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Your Nutrition Assessment Summary</h2>
+                <span class="status-badge">Improving</span>
+            </div>
+            <p class="section-description">
+                Based on your genetics, current biomarkers, and health profile, we've identified that nutrition is a key leverage point 
+                for improving your overall health. Your genetic profile shows carbohydrate sensitivity and gluten sensitivity, while your 
+                biomarkers indicate elevated BMI and inflammation. By optimizing your nutrition through our personalized program, 
+                you can expect improvements in energy levels, cardiovascular health, cognitive function, and digestive wellness.
+            </p>
+        </div>
+
+        <!-- Personalized Solution -->
+        <div class="section">
+            <h2 class="section-title">Your Personalized Solution</h2>
+            <div class="solution-box">
+                <div class="solution-title">We recommend one evidence-based nutrition program, specifically configured for your unique profile. This is the only action you need to take - everything below explains why this works for you.</div>
+                <p class="solution-description">Our recommendation is based on your genetic predispositions, current health markers, and lifestyle factors.</p>
+                
+                <div class="program-card">
+                    <div class="program-header">
+                        <span class="program-name">Mediterranean, Gluten-Free, Moderate Weight Loss Program</span>
+                        <span class="active-label">Currently Active</span>
+                    </div>
+                    <div class="program-details">
+                        <strong>Why this specific configuration:</strong>
+                        <ul>
+                            <li><strong>Mediterranean approach</strong> - Addresses your genetic carbohydrate sensitivity with healthy fats and moderate carbs</li>
+                            <li><strong>Gluten-free modification</strong> - Accounts for your genetic gluten sensitivity to reduce inflammation</li>
+                            <li><strong>Moderate weight loss focus</strong> - Creates appropriate calorie deficit to move your BMI from 27.2 to optimal range</li>
+                        </ul>
+                        <div style="margin-top: 12px; padding: 8px; background: #f3f4f6; border-radius: 6px; font-size: 12px;">
+                            <strong>Week 3 of 12</strong> - Stay consistent with your program
+                        </div>
+                    </div>
+                    <div class="program-actions">
+                        <button class="btn btn-secondary" onclick="HealthApp.showToast('Day progress tracking coming soon!')">View Day Progress & Tracking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supporting Data & Insights -->
+        <div class="section">
+            <h2 class="section-title">Supporting Data & Insights</h2>
+            <p class="section-description">
+                The information below explains why we chose your specific program configuration. You don't need to act on these individually - 
+                they inform your program design.
+            </p>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="longevity">Longevity</button>
+                <button class="tab-btn" data-tab="conditions">Conditions</button>
+                <button class="tab-btn" data-tab="dna">DNA</button>
+                <button class="tab-btn" data-tab="biomarkers">Biomarkers</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Longevity Tab -->
+                <div class="tab-panel active" id="longevity">
+                    <h3 class="tab-title">🧬 Longevity Impact</h3>
+                    <p class="tab-description">
+                        These assessments show how your current nutrition habits are impacting your projected lifespan and healthspan.
+                    </p>
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <div class="data-value optimal">+1.70 years</div>
+                            <div class="data-label">Diet Quality</div>
+                            <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">How nutrient-dense and healthy your food choices are</div>
+                        </div>
+                        <div class="data-item clickable-indicator" onclick="router.navigateTo('composite-metrics')" style="cursor: pointer;">
+                            <div class="data-value attention">-1.27 years</div>
+                            <div class="data-label">Diet Habits</div>
+                            <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Your eating patterns, timing, and behavioral consistency</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditions Tab -->
+                <div class="tab-panel" id="conditions">
+                    <h3 class="tab-title">🎯 Conditions That May Improve with Optimal Nutrition</h3>
+                    <p class="tab-description">
+                        Evidence-based research shows nutrition optimization can significantly impact these health areas.
+                    </p>
+
+                    <div class="conditions-subsection">
+                        <h4 class="subsection-title">Your Conditions</h4>
+                        <div class="conditions-grid">
+                            <div class="condition-card user-condition clickable-card-indicator" onclick="router.navigateTo('fatigue')" style="cursor: pointer;">
+                                <div class="condition-header">
+                                    <span class="condition-name">Fatigue</span>
+                                    <span class="condition-badge reported">You Reported</span>
+                                </div>
+                                <p class="condition-description">Nutrient deficiencies and blood sugar fluctuations are common causes of persistent fatigue.</p>
+                                <div class="condition-impact">Expected improvement: <strong>Moderate to High</strong></div>
+                            </div>
+
+                            <div class="condition-card user-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Digestive Issues</span>
+                                    <span class="condition-badge reported">You Reported</span>
+                                </div>
+                                <p class="condition-description">Gut health directly responds to dietary modifications and nutrient support.</p>
+                                <div class="condition-impact">Expected improvement: <strong>High</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conditions-subsection">
+                        <h4 class="subsection-title">Other Top Evidence-Based Impacts</h4>
+                        <div class="conditions-grid">
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Cardiovascular Health</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Mediterranean diet patterns significantly reduce cardiovascular disease risk.</p>
+                                <div class="condition-impact">Expected improvement: <strong>High</strong></div>
+                            </div>
+
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Cognitive Function</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Brain-supporting nutrients enhance memory, focus, and mental clarity.</p>
+                                <div class="condition-impact">Expected improvement: <strong>Moderate</strong></div>
+                            </div>
+
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Inflammation</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Anti-inflammatory foods reduce systemic inflammation markers.</p>
+                                <div class="condition-impact">Expected improvement: <strong>High</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DNA Tab -->
+                <div class="tab-panel" id="dna">
+                    <h3 class="tab-title">🧬 Your Genetic Profile</h3>
+                    <p class="tab-description">
+                        These genetic markers influenced your program configuration and explain why certain dietary approaches work better for you.
+                    </p>
+                    <div class="genetic-container">
+                        <div class="genetic-item">
+                            <span>Lactose Tolerance</span>
+                            <span class="genetic-status favorable">Favorable</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Gluten Sensitivity</span>
+                            <span class="genetic-status sensitive">Sensitive</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Carbohydrate Sensitivity</span>
+                            <span class="genetic-status increased">Increased</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Fat Metabolism</span>
+                            <span class="genetic-status favorable">Efficient</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Vitamin D Processing</span>
+                            <span class="genetic-status sensitive">Reduced</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Caffeine Sensitivity</span>
+                            <span class="genetic-status favorable">Normal</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Omega-3 Response</span>
+                            <span class="genetic-status favorable">High Response</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Salt Sensitivity</span>
+                            <span class="genetic-status sensitive">Sensitive</span>
+                        </div>
+                        <div class="genetic-item clickable-inline-indicator" onclick="router.navigateTo('dna-traits')" style="cursor: pointer;">
+                            <span>Vitamin B12 Processing</span>
+                            <span class="genetic-status attention">Weak</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biomarkers Tab -->
+                <div class="tab-panel" id="biomarkers">
+                    <h3 class="tab-title">🩸 Your Current Biomarkers</h3>
+                    <p class="tab-description">
+                        These lab results and measurements guided our program recommendations and provide baseline tracking points.
+                    </p>
+                    <div class="biomarkers-grid">
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">5.2%</div>
+                            <div class="biomarker-name">HbA1c</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value attention">1.2 mg/L</div>
+                            <div class="biomarker-name">CRP</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value attention">22 ng/mL</div>
+                            <div class="biomarker-name">Vitamin D</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value attention">27.2</div>
+                            <div class="biomarker-name">BMI</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">165</div>
+                            <div class="biomarker-name">Total Cholesterol</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value good">95</div>
+                            <div class="biomarker-name">Glucose</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">45</div>
+                            <div class="biomarker-name">HDL</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">110</div>
+                            <div class="biomarker-name">LDL</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">125</div>
+                            <div class="biomarker-name">Triglycerides</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value good">12.5</div>
+                            <div class="biomarker-name">Vitamin B12</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value attention">18</div>
+                            <div class="biomarker-name">Iron</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">7.2</div>
+                            <div class="biomarker-name">Magnesium</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supplements Section -->
+        <div class="supplements-section">
+            <h2 class="section-title">Supplements That Support Your Diet & Nutrition Needs</h2>
+            <p class="section-description">
+                Based on your Mediterranean, gluten-free program and genetic profile, these supplements may help optimize your nutritional status and support your health goals.
+            </p>
+            
+            <div class="supplements-grid">
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Omega-3 Complex</div>
+                            <div class="supplement-reason">Supports Mediterranean diet benefits and inflammation reduction</div>
+                            <div class="supplement-price">$42/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Vitamin D3 + K2</div>
+                            <div class="supplement-reason">Essential for bone health and immune function</div>
+                            <div class="supplement-price">$35/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Digestive Enzymes</div>
+                            <div class="supplement-reason">Supports gluten-free digestion and nutrient absorption</div>
+                            <div class="supplement-price">$38/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">B-Complex + Folate</div>
+                            <div class="supplement-reason">Supports energy metabolism and genetic variants</div>
+                            <div class="supplement-price">$29/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

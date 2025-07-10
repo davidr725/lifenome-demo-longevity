@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiovascular Health - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .metric-status {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        .excellent { color: #059669; }
+        .optimal { 
+            color: #059669; 
+            background: #dcfce7;
+        }
+        .good { 
+            color: #d97706;
+            background: #fef3c7;
+        }
+        .strong { 
+            color: #d97706;
+            background: #fef3c7;
+        }
+        .low { 
+            color: #059669;
+            background: #dcfce7;
+        }
+
+        .programs-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .programs-description {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .program-icon {
+            width: 24px;
+            height: 24px;
+            background: #8b5cf6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .program-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .program-status {
+            margin-left: auto;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: #10b981;
+            color: white;
+        }
+
+        .program-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .program-benefit {
+            font-size: 12px;
+            color: #374151;
+            background: #f9fafb;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .program-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .program-btn:hover {
+            background: #7c3aed;
+        }
+
+        /* Tab Styles */
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #f3f4f6;
+            margin-bottom: 24px;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #374151;
+        }
+
+        .tab-btn.active {
+            color: #8b5cf6;
+            border-bottom-color: #8b5cf6;
+        }
+
+        .tab-content {
+            min-height: 300px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .tab-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .tab-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .conditions-subsection {
+            margin-bottom: 24px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .condition-card {
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: #fafafa;
+        }
+
+        .user-condition {
+            border-left: 4px solid #8b5cf6;
+            background: #faf5ff;
+        }
+
+        .evidence-condition {
+            border-left: 4px solid #10b981;
+            background: #f0fdf4;
+        }
+
+        .condition-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .condition-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .condition-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .condition-badge.reported {
+            background: #ddd6fe;
+            color: #6d28d9;
+        }
+
+        .condition-badge.evidence {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .condition-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .condition-impact {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .genetic-container {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .genetic-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .genetic-item:last-child {
+            border-bottom: none;
+        }
+
+        .genetic-status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .low-risk {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .high-responsive {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .elevated-risk {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .efficient {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .biomarkers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .biomarker-item {
+            text-align: center;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .biomarker-item:hover {
+            background: #f3f4f6;
+        }
+
+        .biomarker-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .biomarker-name {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .product-mini {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .product-mini-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .product-mini-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .product-mini-reason {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .product-mini-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .recommendations-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .product-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .product-image {
+            flex-shrink: 0;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-actions {
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .product-type {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        .product-reason {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .product-addresses {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .product-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .product-btn:hover {
+            background: #7c3aed;
+        }
+
+        .clickable-inline-indicator {
+            position: relative;
+        }
+
+        .clickable-inline-indicator::after {
+            content: '→';
+            color: #7c3aed;
+            font-weight: 600;
+            margin-left: 8px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .clickable-inline-indicator:hover::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .conditions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-nav {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <h1>Cardiovascular Health</h1>
+
+        <!-- System Status -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Your Cardiovascular System Assessment</h2>
+                <span class="status-badge">Excellent Health</span>
+            </div>
+            <p class="section-description" style="margin-bottom: 16px;">
+                Your cardiovascular system includes your heart, blood vessels (arteries, veins, and capillaries), and blood. 
+                This system is responsible for pumping blood throughout your body, delivering oxygen and nutrients to tissues, 
+                and removing waste products. It's one of the most critical systems for overall health and longevity.
+            </p>
+            <p class="section-description">
+                <strong>Your Assessment:</strong> Your cardiovascular system is performing exceptionally well. You have strong genetic advantages, excellent 
+                lifestyle habits, and biomarkers that indicate robust heart health and circulation. Your current trajectory 
+                suggests continued cardiovascular wellness with age.
+            </p>
+        </div>
+
+        <!-- Supporting Data & Insights -->
+        <div class="section">
+            <h2 class="section-title">Supporting Data & Analysis</h2>
+            <p class="section-description">
+                The detailed information below explains your cardiovascular assessment and provides context for the optimization 
+                recommendations.
+            </p>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="conditions">Conditions</button>
+                <button class="tab-btn" data-tab="dna">DNA</button>
+                <button class="tab-btn" data-tab="biomarkers">Biomarkers</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Conditions Tab -->
+                <div class="tab-panel active" id="conditions">
+                    <h3 class="tab-title">🎯 Conditions Improved by Cardiovascular Health Optimization</h3>
+                    <p class="tab-description">
+                        Strong cardiovascular health positively impacts these health areas through improved circulation, heart function, and metabolic efficiency.
+                    </p>
+
+                    <div class="conditions-subsection">
+                        <h4 class="subsection-title">Your Conditions</h4>
+                        <div class="conditions-grid">
+                            <div class="condition-card user-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Occasional Fatigue</span>
+                                    <span class="condition-badge reported">You Reported</span>
+                                </div>
+                                <p class="condition-description">Poor circulation and cardiovascular fitness are common contributors to energy levels throughout the day.</p>
+                                <div class="condition-impact">Expected improvement: <strong>High</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conditions-subsection">
+                        <h4 class="subsection-title">Other Top Evidence-Based Impacts</h4>
+                        <div class="conditions-grid">
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Cognitive Function</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Improved blood flow to the brain enhances memory, focus, and cognitive performance.</p>
+                                <div class="condition-impact">Expected improvement: <strong>High</strong></div>
+                            </div>
+
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Exercise Performance</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Enhanced cardiovascular efficiency directly improves endurance, recovery, and workout capacity.</p>
+                                <div class="condition-impact">Expected improvement: <strong>Very High</strong></div>
+                            </div>
+
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Sleep Quality</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Healthy heart rhythm variability and circulation patterns support deeper, more restorative sleep.</p>
+                                <div class="condition-impact">Expected improvement: <strong>Moderate</strong></div>
+                            </div>
+
+                            <div class="condition-card evidence-condition">
+                                <div class="condition-header">
+                                    <span class="condition-name">Longevity</span>
+                                    <span class="condition-badge evidence">Strong Evidence</span>
+                                </div>
+                                <p class="condition-description">Cardiovascular health is the strongest predictor of lifespan and healthspan across populations.</p>
+                                <div class="condition-impact">Expected improvement: <strong>Very High</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DNA Tab -->
+                <div class="tab-panel" id="dna">
+                    <h3 class="tab-title">🧬 Your Genetic Predisposition</h3>
+                    <p class="tab-description">
+                        Your genetic profile shows favorable cardiovascular traits with low inherited risk factors and good response to exercise.
+                    </p>
+                    <div class="genetic-container">
+                        <div class="genetic-item">
+                            <span>Heart Disease Risk</span>
+                            <span class="genetic-status low-risk">Low Risk</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Exercise Response</span>
+                            <span class="genetic-status high-responsive">High Responsive</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Blood Pressure Sensitivity</span>
+                            <span class="genetic-status elevated-risk">Elevated Risk</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Cholesterol Processing</span>
+                            <span class="genetic-status efficient">Efficient</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Omega-3 Response</span>
+                            <span class="genetic-status high-responsive">High Response</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Nitric Oxide Production</span>
+                            <span class="genetic-status efficient">Efficient</span>
+                        </div>
+                        <div class="genetic-item">
+                            <span>Inflammation Response</span>
+                            <span class="genetic-status low-risk">Low Risk</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biomarkers Tab -->
+                <div class="tab-panel" id="biomarkers">
+                    <h3 class="tab-title">🩸 Your Current Biomarkers</h3>
+                    <p class="tab-description">
+                        Recent lab work shows excellent cardiovascular biomarkers with optimal lipid panel and inflammatory markers.
+                    </p>
+                    <div class="biomarkers-grid">
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">165 mg/dL</div>
+                            <div class="biomarker-name">Total Cholesterol</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">110 mg/dL</div>
+                            <div class="biomarker-name">HDL</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">95 mg/dL</div>
+                            <div class="biomarker-name">LDL</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">125 mg/dL</div>
+                            <div class="biomarker-name">Triglycerides</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value attention">0.8 mg/L</div>
+                            <div class="biomarker-name">CRP</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">4.2 µmol/L</div>
+                            <div class="biomarker-name">Homocysteine</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">58 bpm</div>
+                            <div class="biomarker-name">Resting HR</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">118/76</div>
+                            <div class="biomarker-name">Blood Pressure</div>
+                        </div>
+                        <div class="biomarker-item clickable-inline-indicator" onclick="router.navigateTo('wearable-metrics')" style="cursor: pointer;">
+                            <div class="biomarker-value optimal">45 ms</div>
+                            <div class="biomarker-name">HRV</div>
+                        </div>
+                        <div class="biomarker-item">
+                            <div class="biomarker-value optimal">52</div>
+                            <div class="biomarker-name">VO2 Max</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Recommendations -->
+        <div class="recommendations-section">
+            <h2 class="section-title">Product Recommendations for You</h2>
+            <p class="section-description">
+                Based on your comprehensive cardiovascular assessment above, here are our evidence-based product recommendations 
+                that address multiple factors from your genetic profile and biomarker analysis.
+            </p>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-image">
+                        <div style="width: 80px; height: 80px; background: #f3f4f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 12px; text-align: center;">Product Image</div>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-name">Complete Cardiovascular Support Bundle</div>
+                        <div class="product-type">Comprehensive Formula</div>
+                        <div class="product-reason">
+                            This comprehensive bundle addresses your high omega-3 response genetics, supports your occasional fatigue, and maintains your excellent cardiovascular trajectory.
+                        </div>
+                        <div class="product-addresses">
+                            <strong>Addresses:</strong> Omega-3 genetic response (DNA tab) • Energy support for fatigue (Conditions tab) • Maintains optimal biomarkers (Biomarkers tab)
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <div class="product-price">$89/month</div>
+                        <button class="product-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div>
+                        <div class="product-name">CoQ10 + Magnesium Complex</div>
+                        <div class="product-type">Energy & Heart Support</div>
+                    </div>
+                    <div class="product-price">$45/month</div>
+                </div>
+                <div class="product-reason">
+                    Specifically targets your reported occasional fatigue while supporting cellular energy production and heart muscle function.
+                </div>
+                <div class="product-addresses">
+                    <strong>Addresses:</strong> Occasional fatigue (Conditions tab) • Cellular energy support • Heart muscle function
+                </div>
+                <button class="product-btn">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div>
+                        <div class="product-name">High-Potency Omega-3 EPA/DHA</div>
+                        <div class="product-type">Genetic-Optimized</div>
+                    </div>
+                    <div class="product-price">$32/month</div>
+                </div>
+                <div class="product-reason">
+                    Your genetics show high omega-3 response, making this particularly beneficial for maintaining your excellent cardiovascular health.
+                </div>
+                <div class="product-addresses">
+                    <strong>Addresses:</strong> High omega-3 response genetics (DNA tab) • Inflammation support • Cardiovascular maintenance
+                </div>
+                <button class="product-btn">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Programs Section -->
+        <div class="section">
+            <h2 class="section-title">How Your Programs Enhance Cardiovascular Health</h2>
+            <div class="programs-section">
+                <p class="programs-description">
+                    You're already following evidence-based lifestyle programs. Here's how each one is specifically optimizing 
+                    your cardiovascular system and contributing to these excellent results.
+                </p>
+                
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div class="program-icon">🏃</div>
+                            <div class="program-name">Your Fitness Program</div>
+                            <div class="program-status">Active</div>
+                        </div>
+                        <p class="program-description">
+                            Your current 40-minute daily cardio routine is perfectly optimized for your excellent VO2 Max (52) and low resting heart rate (58 bpm).
+                        </p>
+                        <div class="program-benefit">
+                            <strong>Cardiovascular Benefits:</strong> Improves oxygen delivery, strengthens heart muscle, enhances circulation, better recovery between beats.
+                        </div>
+                        <button class="program-btn" onclick="HealthApp.showToast('Fitness program coming soon!')">View Fitness Program</button>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div class="program-icon">🥗</div>
+                            <div class="program-name">Your Nutrition Program</div>
+                            <div class="program-status">Active</div>
+                        </div>
+                        <p class="program-description">
+                            Your Mediterranean nutrition approach is keeping your CRP low (0.8 mg/L) and supporting optimal cholesterol levels.
+                        </p>
+                        <div class="program-benefit">
+                            <strong>Cardiovascular Benefits:</strong> Reduced inflammation, balanced lipid profile, arterial health, blood pressure regulation.
+                        </div>
+                        <button class="program-btn" onclick="router.navigateTo('nutrition')">Start Nutrition Program</button>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div class="program-icon">😴</div>
+                            <div class="program-name">Your Sleep Program</div>
+                            <div class="program-status">Active</div>
+                        </div>
+                        <p class="program-description">
+                            Quality sleep from your program is enhancing your HRV (45ms) and supporting optimal cardiovascular recovery.
+                        </p>
+                        <div class="program-benefit">
+                            <strong>Cardiovascular Benefits:</strong> Autonomic nervous system regulation, recovery, hormone optimization, recovery enhancement.
+                        </div>
+                        <button class="program-btn" onclick="HealthApp.showToast('Sleep program coming soon!')">Start Sleep Program</button>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-header">
+                            <div class="program-icon">🧘</div>
+                            <div class="program-name">Your Stress Management</div>
+                            <div class="program-status">Active</div>
+                        </div>
+                        <p class="program-description">
+                            Your stress management practices are keeping cortisol balanced and supporting your excellent blood pressure.
+                        </p>
+                        <div class="program-benefit">
+                            <strong>Cardiovascular Benefits:</strong> Lower blood pressure, reduced cortisol impact, improved vascular function, decreased heart disease risk.
+                        </div>
+                        <button class="program-btn" onclick="HealthApp.showToast('Stress management program coming soon!')">Start Stress Management</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetTab = this.dataset.tab;
+
+                    // Remove active class from all buttons and panels
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding panel
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Variability - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .current-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .status-icon {
+            width: 16px;
+            height: 16px;
+            background: #f59e0b;
+            border-radius: 50%;
+        }
+
+        .status-text {
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .last-updated {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .ranges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .range-item {
+            text-align: center;
+        }
+
+        .range-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .range-value {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .range-poor { color: #dc2626; }
+        .range-fair { color: #f59e0b; }
+        .range-good { color: #059669; }
+        .range-excellent { color: #10b981; }
+
+        .data-visualization {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .time-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .time-btn {
+            padding: 6px 12px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-btn.active {
+            background: #8b5cf6;
+            color: white;
+            border-color: #8b5cf6;
+        }
+
+        .time-btn:hover:not(.active) {
+            background: #f9fafb;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .recent-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .recent-data-table th,
+        .recent-data-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .recent-data-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-poor {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-fair {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .medical-disclaimer {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .disclaimer-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer-icon {
+            font-size: 16px;
+        }
+
+        .disclaimer-text {
+            font-size: 14px;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        .programs-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .programs-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0369a1;
+            margin-bottom: 8px;
+        }
+
+        .programs-subtitle {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e0f2fe;
+        }
+
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .program-icon {
+            width: 24px;
+            height: 24px;
+            background: #8b5cf6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .program-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .program-status {
+            margin-left: auto;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: #10b981;
+            color: white;
+        }
+
+        .program-impact {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .program-benefit {
+            font-size: 12px;
+            color: #6b7280;
+            background: #f9fafb;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .supplements-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .supplement-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .supplement-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .supplement-image {
+            width: 50px;
+            height: 50px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .supplement-details {
+            flex-grow: 1;
+        }
+
+        .supplement-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .supplement-reason {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .supplement-price {
+            font-weight: 600;
+            color: #059669;
+            font-size: 14px;
+        }
+
+        .supplement-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .supplement-btn:hover {
+            background: #7c3aed;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .ranges-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .time-selector {
+                flex-wrap: wrap;
+            }
+            
+            .programs-grid,
+            .supplements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>Heart Rate Variability (HRV)</h1>
+            <div class="current-status">
+                <div class="status-icon"></div>
+                <span class="status-text">Current: 32ms (Below Average)</span>
+            </div>
+            <div class="last-updated">Last updated: 2 hours ago</div>
+        </div>
+
+        <!-- What is HRV Section -->
+        <div class="section">
+            <h2 class="section-title">What is Heart Rate Variability?</h2>
+            <p class="section-description">
+                Heart Rate Variability (HRV) measures the variation in time between consecutive heartbeats. Rather than your heart beating like a metronome, a healthy heart has natural variations in the timing between beats. This variation is controlled by your autonomic nervous system and reflects your body's ability to adapt to stress and recover.
+            </p>
+            <p class="section-description">
+                Higher HRV generally indicates better cardiovascular fitness, stress resilience, and recovery capacity. Lower HRV can suggest fatigue, stress, illness, or overtraining. HRV is measured during sleep or rest when your heart rate is most stable.
+            </p>
+            <p class="section-description">
+                Your wearable device tracks HRV continuously, providing insights into your daily stress levels, recovery status, and overall autonomic nervous system health.
+            </p>
+
+            <div class="ranges-grid">
+                <div class="range-item">
+                    <div class="range-label">Poor</div>
+                    <div class="range-value range-poor">< 20ms</div>
+                </div>
+                <div class="range-item">
+                    <div class="range-label">Fair</div>
+                    <div class="range-value range-fair">20-30ms</div>
+                </div>
+                <div class="range-item">
+                    <div class="range-label">Good</div>
+                    <div class="range-value range-good">30-50ms</div>
+                </div>
+                <div class="range-item">
+                    <div class="range-label">Excellent</div>
+                    <div class="range-value range-excellent">50ms+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Data Visualization -->
+        <div class="section">
+            <h2 class="section-title">Your HRV Trends</h2>
+            
+            <div class="data-visualization">
+                <div class="time-selector">
+                    <button class="time-btn" onclick="selectTimeframe(this, '7d')">7 Days</button>
+                    <button class="time-btn" onclick="selectTimeframe(this, '30d')">30 Days</button>
+                    <button class="time-btn active" onclick="selectTimeframe(this, '90d')">90 Days</button>
+                    <button class="time-btn" onclick="selectTimeframe(this, '1y')">1 Year</button>
+                </div>
+                
+                <div class="chart-placeholder">
+                    HRV Trend Chart (90 Days)
+                    <br>
+                    <small>Interactive chart showing daily HRV measurements with sleep quality and stress correlations</small>
+                </div>
+                
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">32ms</div>
+                        <div class="stat-label">Current</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">29ms</div>
+                        <div class="stat-label">7-Day Avg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">31ms</div>
+                        <div class="stat-label">30-Day Avg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">28ms</div>
+                        <div class="stat-label">90-Day Avg</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">↑ +3ms</div>
+                        <div class="stat-label">Trend</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7.2/10</div>
+                        <div class="stat-label">Avg Sleep</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Disclaimer -->
+        <div class="medical-disclaimer">
+            <div class="disclaimer-title">
+                <span class="disclaimer-icon">⚠️</span>
+                Wearable Data Disclaimer
+            </div>
+            <div class="disclaimer-text">
+                Wearable device data is for fitness and wellness purposes only and should not be used for medical diagnosis or treatment decisions. HRV measurements can vary significantly based on device placement, movement, and other factors. Consult your healthcare provider for medical concerns or before making health decisions based on wearable data.
+            </div>
+        </div>
+
+        <!-- Programs Section -->
+        <div class="programs-section">
+            <h2 class="programs-title">Your Programs Are Designed to Improve HRV</h2>
+            <p class="programs-subtitle">
+                Each of your lifestyle programs directly impacts the factors that influence heart rate variability and autonomic nervous system health.
+            </p>
+            
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🏃</div>
+                        <div class="program-name">Fitness Program</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>HRV Impact:</strong> Regular cardiovascular exercise is one of the most effective ways to improve HRV and autonomic nervous system balance.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Aerobic exercise strengthens the heart and improves the nervous system's ability to regulate heart rhythm variability.
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">😴</div>
+                        <div class="program-name">Sleep Program</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>HRV Impact:</strong> Quality sleep is essential for HRV recovery. Your sleep program optimizes the conditions for autonomic nervous system restoration.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Deep sleep allows the parasympathetic nervous system to dominate, improving HRV and recovery metrics.
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🧘</div>
+                        <div class="program-name">Stress Management</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>HRV Impact:</strong> Chronic stress significantly reduces HRV. Your stress management practices directly improve autonomic balance.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Meditation, breathing exercises, and stress reduction activate the parasympathetic nervous system, boosting HRV.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supplements Section -->
+        <div class="supplements-section">
+            <h2 class="section-title">Supplements That May Support HRV and Autonomic Health</h2>
+            <p class="section-description">
+                These research-backed supplements may help support the factors that influence heart rate variability and nervous system health.
+            </p>
+            
+            <div class="supplements-grid">
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Magnesium Glycinate</div>
+                            <div class="supplement-reason">Supports nervous system function and heart rhythm</div>
+                            <div class="supplement-price">$28/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Omega-3 EPA/DHA</div>
+                            <div class="supplement-reason">Anti-inflammatory support for cardiovascular health</div>
+                            <div class="supplement-price">$35/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Adaptogenic Blend</div>
+                            <div class="supplement-reason">Helps the body adapt to stress and support HRV</div>
+                            <div class="supplement-price">$42/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectTimeframe(button, timeframe) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Update chart placeholder text
+            const chartPlaceholder = document.querySelector('.chart-placeholder');
+            const timeframes = {
+                '7d': '7 Days',
+                '30d': '30 Days', 
+                '90d': '90 Days',
+                '1y': '1 Year'
+            };
+            
+            chartPlaceholder.innerHTML = `
+                HRV Trend Chart (${timeframes[timeframe]})
+                <br>
+                <small>Interactive chart showing ${timeframe === '7d' || timeframe === '30d' ? 'daily' : timeframe === '1y' ? 'weekly' : 'daily'} HRV measurements</small>
+            `;
+            
+            console.log('Selected timeframe:', timeframe);
+        }
+    </script>
+</body>
+</html>

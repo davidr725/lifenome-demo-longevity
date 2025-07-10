@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Habits - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .score-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .score-info {
+            text-align: left;
+        }
+
+        .longevity-impact {
+            font-size: 18px;
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+
+        .assessment-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .assessment-text {
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .score-scale {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .scale-header {
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .scale-bar {
+            display: flex;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .scale-segment {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            position: relative;
+        }
+
+        .scale-very-unhealthy {
+            background: linear-gradient(135deg, #fca5a5 0%, #ef4444 100%);
+        }
+
+        .scale-poor {
+            background: linear-gradient(135deg, #fed7aa 0%, #f97316 100%);
+        }
+
+        .scale-fair {
+            background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+        }
+
+        .scale-good {
+            background: linear-gradient(135deg, #a7f3d0 0%, #10b981 100%);
+            position: relative;
+        }
+
+        .scale-excellent {
+            background: linear-gradient(135deg, #86efac 0%, #059669 100%);
+        }
+
+        .current-marker {
+            position: absolute;
+            top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #1f2937;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        .historical-section {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .historical-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #374151;
+        }
+
+        .historical-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .historical-table th,
+        .historical-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .historical-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .trend-up {
+            color: #059669;
+        }
+
+        .trend-down {
+            color: #dc2626;
+        }
+
+        .trend-stable {
+            color: #6b7280;
+        }
+
+        .medical-disclaimer {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .disclaimer-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer-icon {
+            font-size: 16px;
+        }
+
+        .disclaimer-text {
+            font-size: 14px;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        .programs-section {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .programs-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0369a1;
+            margin-bottom: 8px;
+        }
+
+        .programs-subtitle {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e0f2fe;
+        }
+
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .program-icon {
+            width: 24px;
+            height: 24px;
+            background: #8b5cf6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .program-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .program-status {
+            margin-left: auto;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: #10b981;
+            color: white;
+        }
+
+        .program-impact {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .program-benefit {
+            font-size: 12px;
+            color: #6b7280;
+            background: #f9fafb;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .supplements-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .supplement-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .supplement-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .supplement-image {
+            width: 50px;
+            height: 50px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .supplement-details {
+            flex-grow: 1;
+        }
+
+        .supplement-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .supplement-reason {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .supplement-price {
+            font-weight: 600;
+            color: #059669;
+            font-size: 14px;
+        }
+
+        .supplement-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .supplement-btn:hover {
+            background: #7c3aed;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .score-display {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .score-info {
+                text-align: center;
+            }
+            
+            .programs-grid,
+            .supplements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>Diet Habits</h1>
+            <div class="score-display">
+                <div class="score-circle">3.9</div>
+                <div class="score-info">
+                    <div class="longevity-impact">+1.70 years</div>
+                    <div class="assessment-badge">Good Diet Habits</div>
+                </div>
+            </div>
+            <p class="assessment-text">
+                Good job! You already have strong habits. To further improve your diet score and support your 
+                lifespan and healthspan, consider adding intermittent fasting (if you haven't already), staying 
+                well-hydrated, and practicing meditation to help manage food cravings.
+            </p>
+        </div>
+
+        <!-- Definition Section -->
+        <div class="section">
+            <h2 class="section-title">What Are Diet Habits?</h2>
+            <p class="section-description">
+                Diet habits are assessed by analyzing patterns of eating behaviors, including fasting practices, mindful eating, emotional eating, and snacking habits. Some of these behaviors positively contribute to a healthier eating routine, while others may have a negative impact. Understanding these patterns helps identify areas for improvement and enables us to provide practical recommendations to support balanced, mindful, and nourishing eating habits.
+            </p>
+
+            <div class="score-scale">
+                <div class="scale-header">Diet Habits Score Scale</div>
+                <div class="scale-bar">
+                    <div class="scale-segment scale-very-unhealthy">
+                        <span>1.0 - 1.8</span>
+                    </div>
+                    <div class="scale-segment scale-poor">
+                        <span>1.9 - 2.5</span>
+                    </div>
+                    <div class="scale-segment scale-fair">
+                        <span>2.6 - 3.2</span>
+                    </div>
+                    <div class="scale-segment scale-good">
+                        <span>3.3 - 3.9</span>
+                        <div class="current-marker"></div>
+                    </div>
+                    <div class="scale-segment scale-excellent">
+                        <span>4.0 - 5.0</span>
+                    </div>
+                </div>
+                <div class="scale-labels">
+                    <span>Very Unhealthy Diet Habits</span>
+                    <span>Poor Diet Habits</span>
+                    <span>Fair Diet Habits</span>
+                    <span>Good Diet Habits</span>
+                    <span>Excellent Diet Habits</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Values -->
+        <div class="section">
+            <h2 class="section-title">Historical Assessment</h2>
+            <div class="historical-section">
+                <div class="historical-title">Diet Habits Score Over Time</div>
+                <table class="historical-table">
+                    <thead>
+                        <tr>
+                            <th>Assessment Date</th>
+                            <th>Score</th>
+                            <th>Assessment</th>
+                            <th>Longevity Impact</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>March 2025</td>
+                            <td>3.9</td>
+                            <td>Good Diet Habits</td>
+                            <td>+1.70 years</td>
+                            <td><span class="trend-up">↑ +0.3</span></td>
+                        </tr>
+                        <tr>
+                            <td>December 2024</td>
+                            <td>3.6</td>
+                            <td>Good Diet Habits</td>
+                            <td>+1.45 years</td>
+                            <td><span class="trend-up">↑ +0.4</span></td>
+                        </tr>
+                        <tr>
+                            <td>September 2024</td>
+                            <td>3.2</td>
+                            <td>Fair Diet Habits</td>
+                            <td>+1.05 years</td>
+                            <td><span class="trend-up">↑ +0.2</span></td>
+                        </tr>
+                        <tr>
+                            <td>June 2024</td>
+                            <td>3.0</td>
+                            <td>Fair Diet Habits</td>
+                            <td>+0.85 years</td>
+                            <td><span class="trend-stable">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>March 2024</td>
+                            <td>3.0</td>
+                            <td>Fair Diet Habits</td>
+                            <td>+0.85 years</td>
+                            <td><span class="trend-up">↑ +0.6</span></td>
+                        </tr>
+                        <tr>
+                            <td>December 2023</td>
+                            <td>2.4</td>
+                            <td>Poor Diet Habits</td>
+                            <td>+0.25 years</td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Risks Section -->
+        <div class="section">
+            <h2 class="section-title">Understanding Diet Habit Risks</h2>
+            
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #374151;">Unhealthy Diet Habits Risks</h3>
+            <p class="section-description">
+                Unhealthy diet habits can lead to a range of health risks, including an increased likelihood of overeating and weight gain. Erratic meal timing and poor food choices may result in nutrient imbalances, depriving the body of essential vitamins and minerals needed for optimal function. Additionally, irregular eating patterns, such as skipping meals, can contribute to higher stress levels and impaired digestion.
+            </p>
+            <p class="section-description">
+                These habits also raise the risk of developing disordered eating patterns, including binge eating and emotional eating, which can negatively impact both physical and mental well-being. Frequent blood sugar fluctuations caused by inconsistent eating can lead to fatigue, cravings, and difficulty maintaining energy levels throughout the day. Establishing a balanced and mindful approach to eating is essential for overall health and well-being.
+            </p>
+            
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #374151;">Balance and Mindfulness</h3>
+            <p class="section-description">
+                There is a balance between being mindful of dietary habits and obsessing over eating habits, which may lead to eating disorders, including Orthorexia Nervosa, defined as an obsession with healthy eating and associated restrictive behaviors.
+            </p>
+        </div>
+
+        <!-- Medical Disclaimer -->
+        <div class="medical-disclaimer">
+            <div class="disclaimer-title">
+                <span class="disclaimer-icon">⚠️</span>
+                Health Assessment Disclaimer
+            </div>
+            <div class="disclaimer-text">
+                This assessment is for educational and wellness purposes only and should not be used for medical diagnosis or treatment decisions. Diet habit scores are based on self-reported behaviors and general wellness guidelines. Always consult with your healthcare provider or a registered dietitian before making significant dietary changes or if you have concerns about eating behaviors.
+            </div>
+        </div>
+
+        <!-- Programs Section -->
+        <div class="programs-section">
+            <h2 class="programs-title">Your Programs Are Optimizing Your Diet Habits</h2>
+            <p class="programs-subtitle">
+                Your lifestyle programs work together to reinforce positive eating behaviors and improve your overall diet habits score.
+            </p>
+            
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🥗</div>
+                        <div class="program-name">Nutrition Program</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>Diet Habits Impact:</strong> Your Mediterranean approach promotes mindful eating, regular meal timing, and nutrient-dense food choices that improve overall eating patterns.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Structured meal planning, portion guidance, and focus on whole foods naturally improve eating behaviors and reduce impulsive food choices.
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🧘</div>
+                        <div class="program-name">Stress Management</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>Diet Habits Impact:</strong> Stress reduction techniques help prevent emotional eating and support mindful eating practices that improve diet habit scores.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Mindfulness practices, meditation, and stress reduction prevent stress-driven eating behaviors and promote conscious food choices.
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">😴</div>
+                        <div class="program-name">Sleep Program</div>
+                        <div class="program-status">Active</div>
+                    </div>
+                    <div class="program-impact">
+                        <strong>Diet Habits Impact:</strong> Quality sleep regulates hunger hormones and reduces cravings, supporting better eating decisions and consistent meal timing.
+                    </div>
+                    <div class="program-benefit">
+                        <strong>How it helps:</strong> Better sleep reduces ghrelin (hunger hormone) and increases leptin (satiety hormone), naturally improving eating behaviors.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supplements Section -->
+        <div class="supplements-section">
+            <h2 class="section-title">Supplements That May Support Healthy Eating Behaviors</h2>
+            <p class="section-description">
+                These supplements may help support the biological factors that influence appetite regulation, cravings, and eating behaviors.
+            </p>
+            
+            <div class="supplements-grid">
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Chromium Picolinate</div>
+                            <div class="supplement-reason">May help reduce sugar cravings and support glucose metabolism</div>
+                            <div class="supplement-price">$24/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">5-HTP</div>
+                            <div class="supplement-reason">Supports serotonin production, which may help with emotional eating</div>
+                            <div class="supplement-price">$32/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+
+                <div class="supplement-card">
+                    <div class="supplement-header">
+                        <div class="supplement-image">Product Image</div>
+                        <div class="supplement-details">
+                            <div class="supplement-name">Fiber Complex</div>
+                            <div class="supplement-reason">Promotes satiety and supports healthy eating patterns</div>
+                            <div class="supplement-price">$28/month</div>
+                        </div>
+                    </div>
+                    <button class="supplement-btn">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

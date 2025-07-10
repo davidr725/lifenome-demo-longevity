@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health - Comprehensive Health Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="container">
+            <nav class="app-nav">
+                <a href="#dashboard" class="app-logo">My Health</a>
+                <div class="user-info">
+                    <span>Samantha, 35</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb">
+            <!-- Breadcrumb will be populated by router -->
+        </nav>
+
+        <!-- Page Content Container -->
+        <div id="page-content" class="page-content">
+            <!-- Page content will be loaded here dynamically -->
+            <div class="loading-placeholder" style="text-align: center; padding: 4rem;">
+                <div class="spinner" style="margin: 0 auto 1rem;"></div>
+                <p>Loading your health dashboard...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280;">
+        <div class="container">
+            <p>&copy; 2024 My Health App. Your comprehensive health companion.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/router.js"></script>
+    <script>
+        // Global app utilities
+        window.HealthApp = {
+            // Utility functions that can be used across pages
+            formatDate: function(date) {
+                return new Date(date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            },
+            
+            formatNumber: function(num, decimals = 1) {
+                return Number(num).toFixed(decimals);
+            },
+            
+            showToast: function(message, type = 'info') {
+                // Simple toast notification system
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'error' ? '#fee2e2' : '#d1fae5'};
+                    color: ${type === 'error' ? '#991b1b' : '#065f46'};
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 1000;
+                    animation: slideIn 0.3s ease;
+                `;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+            
+            // Common event handlers
+            reportSymptom: function() {
+                router.navigateTo('symptoms');
+            },
+            
+            bookAppointment: function() {
+                this.showToast('Appointment booking feature coming soon!');
+            },
+            
+            viewPrograms: function() {
+                this.showToast('Health programs feature coming soon!');
+            },
+            
+            updateProfile: function() {
+                this.showToast('Profile update feature coming soon!');
+            },
+            
+            // Tab switching functionality
+            switchTab: function(tabId, buttonElement) {
+                // Hide all tab panels
+                const tabPanels = document.querySelectorAll('.tab-panel');
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Remove active class from all tab buttons
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Show selected tab panel
+                const selectedPanel = document.getElementById(tabId);
+                if (selectedPanel) {
+                    selectedPanel.classList.add('active');
+                }
+                
+                // Add active class to clicked button
+                if (buttonElement) {
+                    buttonElement.classList.add('active');
+                }
+            }
+        };
+        
+        // Add CSS animations for toast
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

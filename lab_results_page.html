@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Results - Comprehensive Metabolic Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .back-link {
+            color: #7c3aed;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .test-description {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .test-description p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .test-description p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .results-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .alert-icon.warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .alert-icon.success {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .biomarkers-list {
+            padding: 0;
+        }
+        
+        .biomarker-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .biomarker-item:last-child {
+            border-bottom: none;
+        }
+        
+        .biomarker-name {
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .biomarker-value {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .value-number {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .value-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .value-status.normal {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .value-status.high {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .value-status.low {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .reference-range {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .test-date {
+            background: #f8fafc;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-number.normal {
+            color: #059669;
+        }
+        
+        .stat-number.flagged {
+            color: #d97706;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        /* Clickable biomarker styles */
+        .biomarker-item.clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .biomarker-item.clickable:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .biomarker-item.clickable:hover .biomarker-name {
+            color: #7c3aed;
+        }
+        
+        .biomarker-item.clickable-indicator::after {
+            content: "→";
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+            color: #7c3aed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#lab-results" class="back-link">← Back to Lab Results</a>
+        
+        <div class="page-header">
+            <h1 class="page-title">Comprehensive Metabolic Panel</h1>
+        </div>
+        
+        <div class="test-date">
+            Test Date: March 15, 2025 • Lab: Quest Diagnostics
+        </div>
+        
+        <div class="summary-stats">
+            <div class="stat-card">
+                <div class="stat-number normal">11</div>
+                <div class="stat-label">Normal Values</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number flagged">3</div>
+                <div class="stat-label">Flagged Values</div>
+            </div>
+        </div>
+        
+        <div class="test-description">
+            <p>The Comprehensive Metabolic Panel (CMP) is a group of 14 blood tests that provides important information about your body's chemical balance and metabolism. This panel examines your kidney function, liver function, blood sugar levels, and electrolyte and fluid balance.</p>
+            <p>Healthcare providers commonly order this test as part of routine health screenings, to monitor chronic conditions like diabetes or kidney disease, or to check how medications might be affecting your organs. The results help assess your overall health and can detect early signs of various medical conditions.</p>
+        </div>
+        
+        <div class="results-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="alert-icon warning">!</span>
+                    Biomarkers Out of Range
+                </h2>
+            </div>
+            <div class="biomarkers-list">
+                <div class="biomarker-item clickable clickable-indicator" onclick="router.navigateTo('glucose')">
+                    <span class="biomarker-name">Glucose</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">126 mg/dL</span>
+                        <span class="value-status high">High</span>
+                        <span class="reference-range">(70-99 mg/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Creatinine</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">1.4 mg/dL</span>
+                        <span class="value-status high">High</span>
+                        <span class="reference-range">(0.7-1.2 mg/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Potassium</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">3.3 mEq/L</span>
+                        <span class="value-status low">Low</span>
+                        <span class="reference-range">(3.5-5.0 mEq/L)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="alert-icon success">✓</span>
+                    Biomarkers in Range
+                </h2>
+            </div>
+            <div class="biomarkers-list">
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Sodium</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">142 mEq/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(136-145 mEq/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Chloride</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">101 mEq/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(98-107 mEq/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Carbon Dioxide</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">24 mEq/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(22-28 mEq/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Blood Urea Nitrogen (BUN)</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">18 mg/dL</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(7-20 mg/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Total Protein</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">7.2 g/dL</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(6.0-8.5 g/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Albumin</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">4.1 g/dL</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(3.5-5.0 g/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Total Bilirubin</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">0.8 mg/dL</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(0.3-1.2 mg/dL)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Alkaline Phosphatase</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">95 U/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(44-147 U/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">ALT</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">28 U/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(7-56 U/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">AST</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">32 U/L</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(10-40 U/L)</span>
+                    </div>
+                </div>
+                <div class="biomarker-item">
+                    <span class="biomarker-name">Calcium</span>
+                    <div class="biomarker-value">
+                        <span class="value-number">9.8 mg/dL</span>
+                        <span class="value-status normal">Normal</span>
+                        <span class="reference-range">(8.5-10.5 mg/dL)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

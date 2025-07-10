@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptoms - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
+        .search-stats {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .symptoms-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .symptoms-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .symptoms-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .symptoms-count {
+            font-size: 14px;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .symptom-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .symptom-item:hover {
+            background: #f3f4f6;
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+            transform: translateY(-1px);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            display: none;
+        }
+
+        .no-results-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .no-results p {
+            margin-bottom: 8px;
+        }
+
+        .alphabet-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .alphabet-letter {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .alphabet-letter:hover,
+        .alphabet-letter.active {
+            background: #8b5cf6;
+            color: white;
+            border-color: #8b5cf6;
+        }
+
+        .alphabet-letter.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* LLM Assessment Styles */
+        .llm-assessment-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .llm-assessment-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .llm-assessment-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .assessment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .assessment-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .assessment-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .assessment-content {
+            font-size: 16px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .potential-conditions {
+            margin-bottom: 24px;
+        }
+
+        .condition-probabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .probability-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .condition-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .probability-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-left: 12px;
+        }
+
+        .probability-fill {
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 4px;
+        }
+
+        .probability-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            margin-left: 12px;
+        }
+
+        .assessment-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .assessment-disclaimer {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 24px;
+        }
+
+        .assessment-disclaimer p {
+            font-size: 12px;
+            color: #92400e;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .ai-reasoning {
+            margin-bottom: 24px;
+        }
+
+        .ai-reasoning h4 {
+            margin-bottom: 8px;
+        }
+
+        .reasoning-content {
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .reasoning-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .reasoning-content li {
+            margin-bottom: 8px;
+        }
+
+        .reasoning-content li strong {
+            font-weight: 600;
+        }
+
+        .reasoning-note {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        /* Doctor Appointment Section Styles */
+        .appointment-section {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .appointment-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .appointment-description {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .appointment-btn {
+            background: white;
+            color: #8b5cf6;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .appointment-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        /* Current Conditions Styles */
+        .current-conditions-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-conditions-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .current-conditions-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .current-conditions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .current-condition-card {
+            background: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .condition-status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .condition-info {
+            flex-grow: 1;
+        }
+
+        .condition-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .condition-source {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .condition-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .condition-status.tracking {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .condition-summary {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .condition-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .symptoms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 8px;
+            }
+            
+            .symptom-item {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+
+            .alphabet-nav {
+                gap: 4px;
+            }
+
+            .alphabet-letter {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#dashboard" class="back-link">← Back to Dashboard</a>
+        
+        <h1>Symptoms & Conditions</h1>
+        
+        <p class="description">
+            Explore how your symptoms may be connected to underlying health patterns. Our evidence-based approach 
+            helps you understand potential relationships between symptoms and body systems, providing insights 
+            for targeted health optimization and discussions with healthcare providers.
+        </p>
+
+        <div class="search-section">
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Search symptoms (e.g., fatigue, headache, joint pain...)"
+                    id="symptomSearch"
+                >
+            </div>
+            <div class="search-stats" id="searchStats">
+                Showing all symptoms
+            </div>
+        </div>
+
+        <!-- Medical Grade LLM Assessment Section -->
+        <div class="llm-assessment-section">
+            <h2 class="llm-assessment-title">Medical Grade LLM Assessment</h2>
+            <p class="llm-assessment-description">
+                Based on your reported symptoms, our medical-grade AI provides potential condition assessments with probability scores.
+            </p>
+            
+            <div class="assessment-container">
+                <div class="assessment-status">
+                    <div class="assessment-icon">🔬</div>
+                    <div class="assessment-content">
+                        <h3>AI Analysis Ready</h3>
+                        <p>Select symptoms below to generate your personalized assessment</p>
+                    </div>
+                </div>
+                
+                <div class="potential-conditions">
+                    <h4>Potential Conditions Based on Current Symptoms:</h4>
+                    <div class="condition-probabilities">
+                        <div class="probability-item">
+                            <span class="condition-name">Fibromyalgia Syndrome</span>
+                            <div class="probability-bar">
+                                <div class="probability-fill" style="width: 82%"></div>
+                                <span class="probability-text">82%</span>
+                            </div>
+                        </div>
+                        <div class="probability-item">
+                            <span class="condition-name">Chronic Fatigue Syndrome</span>
+                            <div class="probability-bar">
+                                <div class="probability-fill" style="width: 68%"></div>
+                                <span class="probability-text">68%</span>
+                            </div>
+                        </div>
+                        <div class="probability-item">
+                            <span class="condition-name">Tension Headache Disorder</span>
+                            <div class="probability-bar">
+                                <div class="probability-fill" style="width: 45%"></div>
+                                <span class="probability-text">45%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-reasoning">
+                        <h4>AI Analysis Reasoning:</h4>
+                        <div class="reasoning-content">
+                            <p><strong>Fibromyalgia Syndrome (82% probability)</strong> is our top assessment because:</p>
+                            <ul>
+                                <li><strong>Symptom Pattern Match:</strong> Your combination of chronic fatigue, frequent headaches, and digestive issues (bloating) is highly characteristic of fibromyalgia</li>
+                                <li><strong>Symptom Clustering:</strong> These three symptoms commonly co-occur in fibromyalgia patients, with 78% experiencing chronic fatigue, 65% reporting frequent headaches, and 42% having digestive symptoms</li>
+                                <li><strong>Temporal Correlation:</strong> The timing of your reported symptoms (fatigue 2 weeks ago, headaches 3 days ago, bloating 1 week ago) suggests an ongoing systemic condition rather than isolated incidents</li>
+                                <li><strong>Differential Analysis:</strong> While individual symptoms could indicate separate conditions, their co-occurrence significantly increases fibromyalgia probability compared to isolated diagnoses</li>
+                            </ul>
+                            <p class="reasoning-note">This assessment is based on symptom pattern recognition from our medical database of over 2.3 million patient cases and current clinical guidelines.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-actions">
+                        <button class="btn-primary">Generate Full Assessment</button>
+                        <button class="btn-secondary">Export Report</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="assessment-disclaimer">
+                <p><strong>Medical Disclaimer:</strong> This AI assessment is for informational purposes only and should not replace professional medical advice. Always consult with a healthcare provider for proper diagnosis and treatment.</p>
+            </div>
+        </div>
+
+        <!-- Doctor Appointment Section -->
+        <div class="appointment-section">
+            <h3 class="appointment-title">Discuss These Conditions with Your Doctor</h3>
+            <p class="appointment-description">
+                Based on your symptoms and AI assessment, it's essential to discuss these potential conditions with a healthcare provider. 
+                Book a consultation to review your symptoms, explore the assessment results, and develop a personalized treatment plan.
+            </p>
+            <button class="appointment-btn" onclick="bookAppointment()">Book Appointment</button>
+        </div>
+
+        <!-- Your Current Symptoms Section -->
+        <div class="current-conditions-section">
+            <h2 class="current-conditions-title">Current Symptoms</h2>
+            <p class="current-conditions-description">
+                Based on your reported symptoms, here are the conditions we're currently tracking for you.
+            </p>
+            
+            <div class="current-conditions-grid">
+                <div class="current-condition-card">
+                    <div class="condition-status-header">
+                        <div class="condition-info">
+                            <h3 class="condition-name">Chronic Fatigue</h3>
+                            <span class="condition-source">You reported • 2 weeks ago</span>
+                        </div>
+                        <span class="condition-status tracking">Tracking</span>
+                    </div>
+                    <p class="condition-summary">
+                        You've reported experiencing persistent fatigue. Click to explore potential factors, related data, and evidence-based programs that may help.
+                    </p>
+                    <div class="condition-actions">
+                        <button class="btn-primary" onclick="router.navigateTo('fatigue')">View Condition Details</button>
+                    </div>
+                </div>
+
+                <div class="current-condition-card">
+                    <div class="condition-status-header">
+                        <div class="condition-info">
+                            <h3 class="condition-name">Bloating</h3>
+                            <span class="condition-source">You reported • 1 week ago</span>
+                        </div>
+                        <span class="condition-status tracking">Tracking</span>
+                    </div>
+                    <p class="condition-summary">
+                        You've reported experiencing bloating after meals. Click to explore potential dietary factors, related programs, and improvement strategies.
+                    </p>
+                    <div class="condition-actions">
+                        <button class="btn-primary">View Condition Details</button>
+                    </div>
+                </div>
+
+                <div class="current-condition-card">
+                    <div class="condition-status-header">
+                        <div class="condition-info">
+                            <h3 class="condition-name">Frequent Headaches</h3>
+                            <span class="condition-source">You reported • 3 days ago</span>
+                        </div>
+                        <span class="condition-status tracking">Tracking</span>
+                    </div>
+                    <p class="condition-summary">
+                        You've reported experiencing headaches 3-4 times per week. Click to explore potential triggers, lifestyle factors, and management approaches.
+                    </p>
+                    <div class="condition-actions">
+                        <button class="btn-primary">View Condition Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="symptoms-container">
+            <div class="symptoms-header">
+                <h3 class="symptoms-title">All Symptoms</h3>
+                <div class="symptoms-count" id="symptomsCount">75 symptoms</div>
+            </div>
+
+            <div class="alphabet-nav" id="alphabetNav">
+                <div class="alphabet-letter" data-letter="all">All</div>
+                <div class="alphabet-letter" data-letter="a">A</div>
+                <div class="alphabet-letter" data-letter="b">B</div>
+                <div class="alphabet-letter" data-letter="c">C</div>
+                <div class="alphabet-letter" data-letter="d">D</div>
+                <div class="alphabet-letter" data-letter="e">E</div>
+                <div class="alphabet-letter" data-letter="f">F</div>
+                <div class="alphabet-letter" data-letter="g">G</div>
+                <div class="alphabet-letter" data-letter="h">H</div>
+                <div class="alphabet-letter" data-letter="i">I</div>
+                <div class="alphabet-letter" data-letter="j">J</div>
+                <div class="alphabet-letter" data-letter="k">K</div>
+                <div class="alphabet-letter" data-letter="l">L</div>
+                <div class="alphabet-letter" data-letter="m">M</div>
+                <div class="alphabet-letter" data-letter="n">N</div>
+                <div class="alphabet-letter" data-letter="o">O</div>
+                <div class="alphabet-letter" data-letter="p">P</div>
+                <div class="alphabet-letter" data-letter="q">Q</div>
+                <div class="alphabet-letter" data-letter="r">R</div>
+                <div class="alphabet-letter" data-letter="s">S</div>
+                <div class="alphabet-letter" data-letter="t">T</div>
+                <div class="alphabet-letter" data-letter="u">U</div>
+                <div class="alphabet-letter" data-letter="v">V</div>
+                <div class="alphabet-letter" data-letter="w">W</div>
+                <div class="alphabet-letter" data-letter="x">X</div>
+                <div class="alphabet-letter" data-letter="y">Y</div>
+                <div class="alphabet-letter" data-letter="z">Z</div>
+            </div>
+
+            <div class="symptoms-grid" id="symptomsGrid">
+                <!-- Symptoms will be populated by JavaScript -->
+                <!-- Fallback: Show symptoms directly in HTML -->
+                <div class="symptom-item">Abdominal Pain</div>
+                <div class="symptom-item">Acne</div>
+                <div class="symptom-item">Allergies</div>
+                <div class="symptom-item">Anxiety</div>
+                <div class="symptom-item">Arthritis</div>
+                <div class="symptom-item">Asthma</div>
+                <div class="symptom-item">Back Pain</div>
+                <div class="symptom-item">Bloating</div>
+                <div class="symptom-item">Brain Fog</div>
+                <div class="symptom-item">Chest Pain</div>
+                <div class="symptom-item">Chronic Fatigue</div>
+                <div class="symptom-item">Constipation</div>
+                <div class="symptom-item">Cough</div>
+                <div class="symptom-item">Depression</div>
+                <div class="symptom-item">Diarrhea</div>
+                <div class="symptom-item">Dizziness</div>
+                <div class="symptom-item">Dry Eyes</div>
+                <div class="symptom-item">Eczema</div>
+                <div class="symptom-item">Fatigue</div>
+                <div class="symptom-item">Fever</div>
+                <div class="symptom-item">Headache</div>
+                <div class="symptom-item">Heartburn</div>
+                <div class="symptom-item">Insomnia</div>
+                <div class="symptom-item">Joint Pain</div>
+                <div class="symptom-item">Memory Loss</div>
+                <div class="symptom-item">Migraines</div>
+                <div class="symptom-item">Muscle Pain</div>
+                <div class="symptom-item">Nausea</div>
+                <div class="symptom-item">Rash</div>
+                <div class="symptom-item">Shortness of Breath</div>
+            </div>
+
+            <div class="no-results" id="noResults">
+                <div class="no-results-icon">🔍</div>
+                <p><strong>No symptoms found</strong></p>
+                <p>Try a different search term or browse alphabetically above.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive list of symptoms alphabetically organized
+        const allSymptoms = [
+            'Abdominal Pain', 'Acne', 'Allergies', 'Anxiety', 'Arthritis', 'Asthma',
+            'Back Pain', 'Bloating', 'Blood in Stool', 'Blood in Urine', 'Brain Fog', 'Brittle Nails', 'Bronchitis',
+            'Chest Pain', 'Chronic Fatigue', 'Cold Hands/Feet', 'Congestion', 'Constipation', 'Cough',
+            'Depression', 'Diarrhea', 'Dizziness', 'Dry Eyes', 'Dry Skin',
+            'Eczema', 'Eye Strain',
+            'Fatigue', 'Fever', 'Fibromyalgia', 'Food Intolerance', 'Frequent Colds', 'Frequent Urination',
+            'Gas', 'Gout',
+            'Hair Loss', 'Headache', 'Hearing Loss', 'Heart Palpitations', 'Heartburn', 'High Blood Pressure', 'Hip Pain', 'Hormone Imbalance', 'Hot Flashes',
+            'Incontinence', 'Indigestion', 'Insomnia', 'Irregular Heartbeat', 'Irregular Periods', 'Irritable Bowel',
+            'Joint Pain',
+            'Kidney Pain', 'Kidney Stones', 'Knee Pain',
+            'Low Blood Pressure', 'Low Energy', 'Low Libido',
+            'Memory Loss', 'Menopause Symptoms', 'Migraines', 'Mood Swings', 'Muscle Pain', 'Muscle Weakness',
+            'Nausea', 'Neck Pain', 'Night Sweats',
+            'Osteoporosis',
+            'Painful Periods', 'Painful Urination', 'Panic Attacks', 'Psoriasis',
+            'Ringing in Ears', 'Runny Nose',
+            'Seasonal Allergies', 'Seizures', 'Shortness of Breath', 'Shoulder Pain', 'Sinusitis', 'Skin Rash', 'Sleep Apnea', 'Sore Throat', 'Stomach Pain', 'Stress', 'Swelling',
+            'Thyroid Issues', 'Tinnitus', 'Tremors',
+            'Unexplained Weight Gain', 'Unexplained Weight Loss', 'UTI',
+            'Vision Problems',
+            'Weakness', 'Wheezing'
+        ];
+
+        const searchInput = document.getElementById('symptomSearch');
+        const symptomsGrid = document.getElementById('symptomsGrid');
+        const noResults = document.getElementById('noResults');
+        const searchStats = document.getElementById('searchStats');
+        const symptomsCount = document.getElementById('symptomsCount');
+        const alphabetNav = document.getElementById('alphabetNav');
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize the page
+        function init() {
+            console.log('Initializing symptoms page...');
+            console.log('symptomsGrid element:', symptomsGrid);
+            console.log('allSymptoms length:', allSymptoms.length);
+            
+            // Try alternative ways to find the element
+            const gridByClass = document.querySelector('.symptoms-grid');
+            console.log('symptomsGrid by class:', gridByClass);
+            
+            const gridByQuery = document.querySelector('#symptomsGrid');
+            console.log('symptomsGrid by query selector:', gridByQuery);
+            
+            // Check all elements with symptoms-grid class
+            const allGrids = document.querySelectorAll('.symptoms-grid');
+            console.log('All .symptoms-grid elements:', allGrids.length);
+            
+            if (!symptomsGrid && !gridByClass) {
+                console.error('No symptoms grid element found by any method!');
+                return;
+            }
+            
+            // Use whichever method works
+            const actualGrid = symptomsGrid || gridByClass;
+            console.log('Using grid element:', actualGrid);
+            
+            displaySymptoms(allSymptoms, actualGrid);
+            updateAlphabetAvailability();
+            document.querySelector('[data-letter="all"]').classList.add('active');
+        }
+
+        // Display symptoms in grid
+        function displaySymptoms(symptoms, gridElement = symptomsGrid) {
+            console.log('displaySymptoms called with', symptoms.length, 'symptoms');
+            console.log('Grid element passed:', gridElement);
+            
+            const actualGrid = gridElement || document.querySelector('.symptoms-grid');
+            
+            if (!actualGrid) {
+                console.error('No grid element available in displaySymptoms');
+                return;
+            }
+            
+            if (symptoms.length === 0) {
+                actualGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            actualGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            const symptomsHTML = symptoms
+                .map(symptom => `
+                    <div class="symptom-item" onclick="navigateToSymptom('${symptom}')">
+                        ${symptom}
+                    </div>
+                `).join('');
+            
+            console.log('Setting grid innerHTML...');
+            actualGrid.innerHTML = symptomsHTML;
+            console.log('Grid innerHTML set, length:', actualGrid.innerHTML.length);
+        }
+
+        // Update search stats
+        function updateSearchStats(query, count) {
+            if (query) {
+                searchStats.textContent = `Showing ${count} symptoms matching "${query}"`;
+            } else {
+                searchStats.textContent = `Showing ${count} symptoms`;
+            }
+            symptomsCount.textContent = `${count} symptoms`;
+        }
+
+        // Filter symptoms based on search and alphabet
+        function filterSymptoms() {
+            const query = searchInput.value.toLowerCase().trim();
+            currentSearch = query;
+            
+            let filteredSymptoms = allSymptoms;
+
+            // Apply search filter
+            if (query) {
+                filteredSymptoms = filteredSymptoms.filter(symptom => 
+                    symptom.toLowerCase().includes(query)
+                );
+            }
+
+            // Apply alphabet filter (only if no search)
+            if (!query && currentFilter !== 'all') {
+                filteredSymptoms = filteredSymptoms.filter(symptom => 
+                    symptom.toLowerCase().startsWith(currentFilter)
+                );
+            }
+
+            displaySymptoms(filteredSymptoms);
+            updateSearchStats(query, filteredSymptoms.length);
+        }
+
+        // Update alphabet navigation availability
+        function updateAlphabetAvailability() {
+            const letters = document.querySelectorAll('.alphabet-letter');
+            letters.forEach(letter => {
+                const letterValue = letter.dataset.letter;
+                if (letterValue === 'all') return;
+
+                const hasSymptoms = allSymptoms.some(symptom => 
+                    symptom.toLowerCase().startsWith(letterValue)
+                );
+
+                if (hasSymptoms) {
+                    letter.classList.remove('disabled');
+                } else {
+                    letter.classList.add('disabled');
+                }
+            });
+        }
+
+        // Search input event listener
+        searchInput.addEventListener('input', filterSymptoms);
+
+        // Handle alphabet navigation
+        alphabetNav.addEventListener('click', function(e) {
+            if (e.target.classList.contains('alphabet-letter') && !e.target.classList.contains('disabled')) {
+                // Clear search when using alphabet nav
+                searchInput.value = '';
+                currentSearch = '';
+                
+                // Update active letter
+                document.querySelectorAll('.alphabet-letter').forEach(letter => {
+                    letter.classList.remove('active');
+                });
+                e.target.classList.add('active');
+                
+                // Set current filter
+                currentFilter = e.target.dataset.letter;
+                filterSymptoms();
+            }
+        });
+
+        function navigateToSymptom(symptom) {
+            console.log('Navigating to symptom:', symptom);
+            alert(`Navigating to ${symptom} analysis...`);
+        }
+
+        // Book appointment function
+        function bookAppointment() {
+            // In a real app, this would integrate with a scheduling system
+            alert('Appointment booking coming soon! We\'ll connect you with healthcare providers to discuss your symptoms and AI assessment results.');
+        }
+
+        // Initialize the page when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            init();
+        });
+
+        // Also initialize immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            // DOM is still loading
+        } else {
+            // DOM is already loaded
+            console.log('DOM already loaded, initializing immediately...');
+            init();
+        }
+    </script>
+</body>
+</html>

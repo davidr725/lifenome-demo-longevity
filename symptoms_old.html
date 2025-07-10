@@ -1,0 +1,206 @@
+<!-- Symptoms Page Content -->
+<div class="page-header text-center">
+    <h1 class="page-title">Symptoms & Conditions</h1>
+    <p class="subtitle">
+        Problem-focused investigation of symptoms, conditions, and health concerns you're experiencing. Track patterns and find targeted solutions.
+    </p>
+</div>
+
+<!-- Current Conditions Overview -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Your Current Conditions</h2>
+    <div class="grid-3 mb-4">
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">3</div>
+            <div style="font-weight: 500; color: #6b7280;">Active Conditions</div>
+        </div>
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #f59e0b; margin-bottom: 8px;">75</div>
+            <div style="font-weight: 500; color: #6b7280;">Total Symptoms</div>
+        </div>
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #059669; margin-bottom: 8px;">12</div>
+            <div style="font-weight: 500; color: #6b7280;">Programs Available</div>
+        </div>
+    </div>
+</div>
+
+<!-- Active Conditions -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Active Conditions</h2>
+    <div class="grid-2">
+        <div class="card" style="border-left: 4px solid #f59e0b;">
+            <div class="flex-between mb-2">
+                <h3 style="color: #1f2937; font-weight: 600;">Chronic Fatigue</h3>
+                <span class="status-badge status-warning">Tracking</span>
+            </div>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                Persistent tiredness and low energy levels affecting daily activities.
+            </p>
+            <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                <span>Duration: 2 weeks</span>
+                <span>Severity: Moderate</span>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary btn-sm" onclick="router.navigateTo('fatigue')">View Details</button>
+            </div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #dc2626;">
+            <div class="flex-between mb-2">
+                <h3 style="color: #1f2937; font-weight: 600;">Bloating</h3>
+                <span class="status-badge status-danger">Active</span>
+            </div>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                Abdominal discomfort and swelling, particularly after meals.
+            </p>
+            <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                <span>Duration: 1 week</span>
+                <span>Severity: Mild</span>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary btn-sm" onclick="HealthApp.showToast('Bloating analysis coming soon!')">View Details</button>
+            </div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #7c3aed;">
+            <div class="flex-between mb-2">
+                <h3 style="color: #1f2937; font-weight: 600;">Frequent Headaches</h3>
+                <span class="status-badge status-good">Improving</span>
+            </div>
+            <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                Recurring headaches affecting concentration and daily activities.
+            </p>
+            <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                <span>Duration: 3 days</span>
+                <span>Severity: Mild</span>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary btn-sm" onclick="HealthApp.showToast('Headache analysis coming soon!')">View Details</button>
+            </div>
+        </div>
+        
+        <div class="card" style="border: 2px dashed #d1d5db; background: #f9fafb;">
+            <div class="text-center" style="padding: 2rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">➕</div>
+                <h3 style="color: #6b7280; font-weight: 600; margin-bottom: 1rem;">Report New Symptom</h3>
+                <p style="color: #9ca3af; font-size: 0.875rem; margin-bottom: 1.5rem;">
+                    Track a new health concern or symptom
+                </p>
+                <button class="btn btn-primary" onclick="HealthApp.showToast('Symptom reporting coming soon!')">
+                    Add Symptom
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Symptom Categories -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Explore by Category</h2>
+    <div class="grid-3">
+        <div class="nav-card" onclick="HealthApp.showToast('Digestive symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🍽️</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Digestive</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Bloating, nausea, stomach pain, and digestive issues
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>12 symptoms</span>
+                <span>2 active</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Energy symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">⚡</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Energy & Sleep</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Fatigue, sleep issues, and energy-related concerns
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>8 symptoms</span>
+                <span>1 active</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Pain symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🤕</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Pain & Discomfort</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Headaches, joint pain, and physical discomfort
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>15 symptoms</span>
+                <span>1 active</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Mood symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🧠</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Mood & Mental</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Anxiety, stress, mood changes, and mental health
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>10 symptoms</span>
+                <span>0 active</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Skin symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🌟</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Skin & Appearance</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Skin issues, hair changes, and appearance concerns
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>6 symptoms</span>
+                <span>0 active</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Other symptoms coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🔍</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Other</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Other health concerns and miscellaneous symptoms
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>24 symptoms</span>
+                <span>0 active</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="flex-center" style="gap: 16px;">
+    <button class="btn btn-primary" onclick="HealthApp.showToast('Symptom reporting coming soon!')">
+        Report New Symptom
+    </button>
+    <button class="btn btn-secondary" onclick="HealthApp.showToast('Symptom history coming soon!')">
+        View History
+    </button>
+    <button class="btn btn-secondary" onclick="HealthApp.showToast('Export data coming soon!')">
+        Export Data
+    </button>
+</div>
+
+<style>
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+}
+</style>

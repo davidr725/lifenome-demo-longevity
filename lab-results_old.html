@@ -1,0 +1,324 @@
+<!-- Lab Results Page Content -->
+<div class="page-header text-center">
+    <h1 class="page-title">Lab Results</h1>
+    <p class="subtitle">
+        Results-focused analysis of blood tests, genetic analysis, and other laboratory examinations with personalized insights.
+    </p>
+</div>
+
+<!-- Lab Results Overview -->
+<div class="card mb-4">
+    <div class="flex-between mb-3">
+        <h2 class="section-title">Your Lab Results Overview</h2>
+        <span class="status-badge status-warning">2 Flagged</span>
+    </div>
+    
+    <div class="grid-3 mb-4">
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">8</div>
+            <div style="font-weight: 500; color: #6b7280;">Total Tests</div>
+        </div>
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #059669; margin-bottom: 8px;">Mar 15</div>
+            <div style="font-weight: 500; color: #6b7280;">Latest Test</div>
+        </div>
+        <div class="metric-card text-center">
+            <div style="font-size: 2rem; font-weight: 600; color: #dc2626; margin-bottom: 8px;">2</div>
+            <div style="font-weight: 500; color: #6b7280;">Flagged Results</div>
+        </div>
+    </div>
+    
+    <div style="background: #fef3c7; padding: 1rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
+        <h4 style="color: #92400e; font-weight: 600; margin-bottom: 8px;">Key Findings</h4>
+        <p style="color: #92400e; font-size: 0.875rem; line-height: 1.5;">
+            Your recent lab results show elevated glucose levels and inflammatory markers (CRP). These findings correlate with your fatigue symptoms and suggest metabolic dysfunction that can be addressed through targeted interventions.
+        </p>
+    </div>
+</div>
+
+<!-- Recent Test Results -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Recent Test Results</h2>
+    
+    <div class="grid-2">
+        <!-- Flagged Results -->
+        <div>
+            <h3 style="color: #dc2626; font-weight: 600; margin-bottom: 1rem;">🚨 Requires Attention</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="card" style="border-left: 4px solid #dc2626; cursor: pointer;" onclick="router.navigateTo('glucose')">
+                    <div class="flex-between mb-2">
+                        <h4 style="font-weight: 600;">Glucose (Fasting)</h4>
+                        <span style="color: #dc2626; font-weight: 600;">126 mg/dL</span>
+                    </div>
+                    <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                        <span>Normal: 70-99 mg/dL</span>
+                        <span>Mar 15, 2024</span>
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.875rem; color: #dc2626;">
+                        <strong>High</strong> - Indicates prediabetic range
+                    </div>
+                </div>
+                
+                <div class="card" style="border-left: 4px solid #dc2626; cursor: pointer;" onclick="HealthApp.showToast('CRP analysis coming soon!')">
+                    <div class="flex-between mb-2">
+                        <h4 style="font-weight: 600;">C-Reactive Protein</h4>
+                        <span style="color: #dc2626; font-weight: 600;">3.2 mg/L</span>
+                    </div>
+                    <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                        <span>Normal: <1.0 mg/L</span>
+                        <span>Mar 15, 2024</span>
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.875rem; color: #dc2626;">
+                        <strong>High</strong> - Indicates systemic inflammation
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Normal Results -->
+        <div>
+            <h3 style="color: #059669; font-weight: 600; margin-bottom: 1rem;">✅ Within Normal Range</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="card" style="border-left: 4px solid #059669;">
+                    <div class="flex-between mb-2">
+                        <h4 style="font-weight: 600;">Total Cholesterol</h4>
+                        <span style="color: #059669; font-weight: 600;">185 mg/dL</span>
+                    </div>
+                    <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                        <span>Normal: <200 mg/dL</span>
+                        <span>Mar 15, 2024</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-left: 4px solid #059669;">
+                    <div class="flex-between mb-2">
+                        <h4 style="font-weight: 600;">HDL Cholesterol</h4>
+                        <span style="color: #059669; font-weight: 600;">58 mg/dL</span>
+                    </div>
+                    <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                        <span>Normal: >40 mg/dL</span>
+                        <span>Mar 15, 2024</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-left: 4px solid #059669;">
+                    <div class="flex-between mb-2">
+                        <h4 style="font-weight: 600;">Thyroid (TSH)</h4>
+                        <span style="color: #059669; font-weight: 600;">2.1 mIU/L</span>
+                    </div>
+                    <div class="flex-between" style="font-size: 0.875rem; color: #6b7280;">
+                        <span>Normal: 0.4-4.0 mIU/L</span>
+                        <span>Mar 15, 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Test Categories -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Test Categories</h2>
+    <div class="grid-3">
+        <div class="nav-card" onclick="HealthApp.showToast('Metabolic panel coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🩸</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Metabolic Panel</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Blood sugar, kidney function, electrolytes, and liver enzymes
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>12 markers</span>
+                <span style="color: #dc2626;">1 flagged</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Lipid panel coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">❤️</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Lipid Panel</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Cholesterol levels and cardiovascular risk markers
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>6 markers</span>
+                <span style="color: #059669;">All normal</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Inflammatory markers coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🔥</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Inflammatory Markers</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                CRP, ESR, and other inflammation indicators
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>4 markers</span>
+                <span style="color: #dc2626;">1 flagged</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Hormone panel coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">⚖️</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Hormone Panel</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Thyroid, cortisol, and reproductive hormones
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>8 markers</span>
+                <span style="color: #059669;">All normal</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Vitamin levels coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">💊</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Vitamins & Minerals</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                Vitamin D, B12, iron, and essential nutrients
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>10 markers</span>
+                <span style="color: #f59e0b;">2 low</span>
+            </div>
+        </div>
+        
+        <div class="nav-card" onclick="HealthApp.showToast('Genetic testing coming soon!')">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🧬</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Genetic Testing</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px;">
+                DNA analysis for health predispositions and traits
+            </div>
+            <div class="nav-stats" style="display: flex; justify-content: space-between; font-size: 0.875rem; color: #6b7280;">
+                <span>45 variants</span>
+                <span style="color: #7c3aed;">Analyzed</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Test History -->
+<div class="card mb-4">
+    <h2 class="section-title mb-3">Test History</h2>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                    <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151;">Test Date</th>
+                    <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151;">Test Type</th>
+                    <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151;">Key Findings</th>
+                    <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151;">Status</th>
+                    <th style="padding: 12px; text-align: left; font-weight: 600; color: #374151;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; color: #374151;">Mar 15, 2024</td>
+                    <td style="padding: 12px; color: #374151;">Comprehensive Metabolic Panel</td>
+                    <td style="padding: 12px; color: #374151;">Glucose elevated, CRP high</td>
+                    <td style="padding: 12px;"><span class="status-badge status-danger">2 Flagged</span></td>
+                    <td style="padding: 12px;"><button class="btn btn-primary btn-sm" onclick="HealthApp.showToast('Detailed results coming soon!')">View Details</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; color: #374151;">Jan 20, 2024</td>
+                    <td style="padding: 12px; color: #374151;">Lipid Panel</td>
+                    <td style="padding: 12px; color: #374151;">All markers normal</td>
+                    <td style="padding: 12px;"><span class="status-badge status-good">Normal</span></td>
+                    <td style="padding: 12px;"><button class="btn btn-secondary btn-sm" onclick="HealthApp.showToast('Historical results coming soon!')">View Details</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; color: #374151;">Dec 10, 2023</td>
+                    <td style="padding: 12px; color: #374151;">Vitamin Panel</td>
+                    <td style="padding: 12px; color: #374151;">Vitamin D low, B12 borderline</td>
+                    <td style="padding: 12px;"><span class="status-badge status-warning">1 Low</span></td>
+                    <td style="padding: 12px;"><button class="btn btn-secondary btn-sm" onclick="HealthApp.showToast('Historical results coming soon!')">View Details</button></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; color: #374151;">Oct 5, 2023</td>
+                    <td style="padding: 12px; color: #374151;">Thyroid Function</td>
+                    <td style="padding: 12px; color: #374151;">TSH, T3, T4 normal</td>
+                    <td style="padding: 12px;"><span class="status-badge status-good">Normal</span></td>
+                    <td style="padding: 12px;"><button class="btn btn-secondary btn-sm" onclick="HealthApp.showToast('Historical results coming soon!')">View Details</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Next Steps -->
+<div class="card">
+    <h2 class="section-title mb-3">Recommended Next Steps</h2>
+    
+    <div class="grid-2">
+        <div style="background: #fee2e2; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #dc2626;">
+            <h3 style="color: #dc2626; font-weight: 600; margin-bottom: 1rem;">🚨 Immediate Actions</h3>
+            <ul style="color: #991b1b; font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem;">
+                <li>Follow up on elevated glucose levels</li>
+                <li>Address inflammatory markers</li>
+                <li>Consider glucose tolerance test</li>
+                <li>Implement anti-inflammatory diet</li>
+            </ul>
+            <button class="btn btn-primary btn-sm" onclick="HealthApp.showToast('Appointment booking coming soon!')">
+                Schedule Follow-up
+            </button>
+        </div>
+        
+        <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #059669;">
+            <h3 style="color: #059669; font-weight: 600; margin-bottom: 1rem;">📅 Routine Monitoring</h3>
+            <ul style="color: #065f46; font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem;">
+                <li>Recheck glucose in 3 months</li>
+                <li>Annual comprehensive panel</li>
+                <li>Monitor vitamin D levels</li>
+                <li>Track inflammatory markers</li>
+            </ul>
+            <button class="btn btn-secondary btn-sm" onclick="HealthApp.showToast('Test scheduling coming soon!')">
+                Schedule Tests
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="flex-center mt-4" style="gap: 16px;">
+    <button class="btn btn-primary" onclick="HealthApp.showToast('New test ordering coming soon!')">
+        Order New Tests
+    </button>
+    <button class="btn btn-secondary" onclick="HealthApp.showToast('Results export coming soon!')">
+        Export Results
+    </button>
+    <button class="btn btn-secondary" onclick="HealthApp.showToast('Doctor sharing coming soon!')">
+        Share with Doctor
+    </button>
+</div>
+
+<style>
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+}
+
+table {
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 0.75rem;
+    }
+    
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+}
+</style>

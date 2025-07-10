@@ -1,0 +1,474 @@
+<!-- Body Systems Page Content -->
+<h1>Body Systems</h1>
+
+<p class="description">
+    Your body systems work together to maintain optimal health and longevity. Each system is evaluated based on 
+    biomarkers, genetic predisposition, lifestyle factors, and symptom patterns to provide you with a comprehensive 
+    view of your health status and improvement opportunities.
+</p>
+
+<div class="anatomy-section">
+    <div class="anatomy-placeholder">
+        Interactive Human Anatomy Model
+    </div>
+    <p class="anatomy-caption">
+        Click on body regions to explore specific systems and their interconnections
+    </p>
+</div>
+
+<div class="systems-grid">
+    <div class="system-card clickable-card-indicator" onclick="router.navigateTo('cardiovascular')">
+        <div class="system-header">
+            <h3 class="system-title">Cardiovascular</h3>
+            <span class="status-indicator status-excellent">Excellent</span>
+        </div>
+        <div class="system-score score-excellent">92</div>
+        <p class="system-description">
+            Heart health, circulation, and blood pressure regulation. Includes cardiac function, 
+            vascular health, and blood flow optimization.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">118/76</span>
+                <span>Blood Pressure</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">52</span>
+                <span>Resting HR</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">165</span>
+                <span>Total Chol</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="router.navigateTo('glucose')">
+        <div class="system-header">
+            <h3 class="system-title">Metabolic & Energy</h3>
+            <span class="status-indicator status-good">Good</span>
+        </div>
+        <div class="system-score score-good">78</div>
+        <p class="system-description">
+            Energy production, blood sugar regulation, and metabolic efficiency. Includes glucose 
+            metabolism, insulin sensitivity, and cellular energy systems.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">5.2%</span>
+                <span>HbA1c</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">23.1</span>
+                <span>BMI</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Insulin</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Digestive system analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Digestive</h3>
+            <span class="status-indicator status-attention">Attention</span>
+        </div>
+        <div class="system-score score-attention">64</div>
+        <p class="system-description">
+            Gut health, nutrient absorption, and digestive function. Includes microbiome balance, 
+            digestive enzyme activity, and intestinal barrier integrity.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Low</span>
+                <span>Diversity</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Elevated</span>
+                <span>Inflammation</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Moderate</span>
+                <span>Symptoms</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Immune system analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Immune & Inflammation</h3>
+            <span class="status-indicator status-good">Good</span>
+        </div>
+        <div class="system-score score-good">81</div>
+        <p class="system-description">
+            Immune system strength and inflammatory response. Includes white blood cell function, 
+            inflammatory markers, and immune system resilience.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">0.8</span>
+                <span>CRP</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>WBC Count</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>Recovery</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Nervous system analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Nervous & Neurological</h3>
+            <span class="status-indicator status-excellent">Excellent</span>
+        </div>
+        <div class="system-score score-excellent">89</div>
+        <p class="system-description">
+            Brain health, cognitive function, and nervous system performance. Includes memory, 
+            focus, mood regulation, and neuroplasticity.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">High</span>
+                <span>Cognition</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Stable</span>
+                <span>Mood</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>Sleep Quality</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Musculoskeletal analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Musculoskeletal</h3>
+            <span class="status-indicator status-good">Good</span>
+        </div>
+        <div class="system-score score-good">76</div>
+        <p class="system-description">
+            Bone density, muscle mass, and joint health. Includes strength, flexibility, 
+            bone mineral density, and movement quality.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Bone Density</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>Muscle Mass</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Flexible</span>
+                <span>Joints</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Respiratory analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Respiratory</h3>
+            <span class="status-indicator status-excellent">Excellent</span>
+        </div>
+        <div class="system-score score-excellent">94</div>
+        <p class="system-description">
+            Lung function, oxygen delivery, and respiratory efficiency. Includes lung capacity, 
+            breathing patterns, and oxygen saturation.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">98%</span>
+                <span>O2 Sat</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">High</span>
+                <span>Lung Capacity</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Optimal</span>
+                <span>Breathing</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Endocrine analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Endocrine & Hormonal</h3>
+            <span class="status-indicator status-attention">Attention</span>
+        </div>
+        <div class="system-score score-attention">68</div>
+        <p class="system-description">
+            Hormone balance and endocrine function. Includes thyroid, adrenal, reproductive, 
+            and growth hormone regulation.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Low</span>
+                <span>Thyroid</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">High</span>
+                <span>Cortisol</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Sex Hormones</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Kidney analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Kidney & Urinary</h3>
+            <span class="status-indicator status-excellent">Excellent</span>
+        </div>
+        <div class="system-score score-excellent">91</div>
+        <p class="system-description">
+            Kidney function, urinary health, and fluid balance. Includes filtration efficiency, 
+            electrolyte balance, and urinary tract health.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Creatinine</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>eGFR</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Balanced</span>
+                <span>Electrolytes</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Skin analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Skin, Hair & Nails</h3>
+            <span class="status-indicator status-good">Good</span>
+        </div>
+        <div class="system-score score-good">79</div>
+        <p class="system-description">
+            Skin health, hair quality, and nail strength. Includes skin barrier function, 
+            collagen production, and signs of aging.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>Hydration</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Collagen</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Strong</span>
+                <span>Hair/Nails</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-card" onclick="HealthApp.showToast('Lymphatic analysis coming soon!')">
+        <div class="system-header">
+            <h3 class="system-title">Lymphatic & Liver</h3>
+            <span class="status-indicator status-good">Good</span>
+        </div>
+        <div class="system-score score-good">83</div>
+        <p class="system-description">
+            Detoxification and lymphatic drainage. Includes liver function, lymph flow, 
+            and toxin elimination capacity.
+        </p>
+        <div class="system-metrics">
+            <div class="metric-item">
+                <span class="metric-value">Normal</span>
+                <span>Liver Enzymes</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Good</span>
+                <span>Detox</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-value">Healthy</span>
+                <span>Lymph Flow</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.description {
+    font-size: 16px;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.anatomy-section {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.anatomy-placeholder {
+    width: 300px;
+    height: 400px;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    border-radius: 12px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 18px;
+    font-weight: 500;
+    border: 2px dashed #d1d5db;
+}
+
+.anatomy-caption {
+    font-size: 14px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.system-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.clickable-card-indicator {
+    position: relative;
+}
+
+.clickable-card-indicator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #374151;
+}
+
+.system-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.system-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.system-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.status-indicator {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-excellent {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-good {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-attention {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.system-score {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.score-excellent {
+    color: #059669;
+}
+
+.score-good {
+    color: #d97706;
+}
+
+.score-attention {
+    color: #dc2626;
+}
+
+.system-description {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.system-metrics {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #9ca3af;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 12px;
+}
+
+.metric-item {
+    text-align: center;
+}
+
+.metric-value {
+    font-weight: 600;
+    color: #374151;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .systems-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

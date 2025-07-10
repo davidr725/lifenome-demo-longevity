@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatigue - My Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .symptom-check {
+            background: #f8f9fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .symptom-question {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .symptom-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .symptom-option {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .symptom-option:hover {
+            border-color: #8b5cf6;
+        }
+
+        .symptom-option.selected {
+            border-color: #8b5cf6;
+            background: #f3f4f6;
+        }
+
+        .severity-section {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .severity-section.visible {
+            display: block;
+        }
+
+        .severity-question {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .severity-scale {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .severity-number {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .severity-number:hover {
+            border-color: #8b5cf6;
+        }
+
+        .severity-number.selected {
+            border-color: #8b5cf6;
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .severity-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .important-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #92400e;
+        }
+
+        .appointment-section {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .appointment-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .appointment-description {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .appointment-btn {
+            background: white;
+            color: #8b5cf6;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .appointment-btn:hover {
+            background: #f9fafb;
+            transform: translateY(-1px);
+        }
+
+        /* Tab Styles */
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #f3f4f6;
+            margin-bottom: 24px;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #374151;
+        }
+
+        .tab-btn.active {
+            color: #8b5cf6;
+            border-bottom-color: #8b5cf6;
+        }
+
+        .tab-content {
+            min-height: 300px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .tab-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #374151;
+        }
+
+        .tab-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .factor-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .factor-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .factor-value {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .factor-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-attention {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-normal {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .product-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .product-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .product-reason {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        .product-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .program-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .program-icon {
+            width: 24px;
+            height: 24px;
+            background: #8b5cf6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .program-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .program-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .program-benefit {
+            font-size: 12px;
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .symptom-options {
+                flex-direction: column;
+            }
+            
+            .severity-scale {
+                flex-wrap: wrap;
+            }
+            
+            .factors-grid, .products-grid, .programs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#symptoms" class="back-link">← Back to Symptoms</a>
+        
+        <h1>Fatigue</h1>
+
+        <!-- Description Section -->
+        <div class="section">
+            <h2 class="section-title">Understanding Fatigue</h2>
+            <p class="section-description">
+                Fatigue is more than just feeling tired—it's a persistent lack of energy that can significantly 
+                impact daily life and long-term health. When someone experiences ongoing fatigue, the body 
+                may be signaling deeper issues that affect cellular energy production, hormone balance, or 
+                recovery processes, all of which are crucial for maintaining vitality as we age.
+            </p>
+            <p class="section-description">
+                Multiple factors can contribute to fatigue, including sleep quality, nutrient deficiencies, stress 
+                levels, and underlying health conditions. Genetic markers can influence how efficiently the 
+                body produces and uses energy, while lifestyle choices like physical activity, diet, and stress 
+                management play major roles in determining energy levels day to day.
+            </p>
+        </div>
+
+        <!-- Symptom Check Section -->
+        <div class="section">
+            <div class="symptom-check">
+                <div class="symptom-question">Are you currently experiencing fatigue symptoms?</div>
+                <div class="symptom-options">
+                    <div class="symptom-option" onclick="selectSymptom(this, 'yes')">Yes</div>
+                    <div class="symptom-option" onclick="selectSymptom(this, 'no')">No</div>
+                    <div class="symptom-option" onclick="selectSymptom(this, 'sometimes')">Sometimes</div>
+                </div>
+                
+                <div class="severity-section" id="severitySection">
+                    <div class="severity-question">On a scale of 1-10, how would you rate your fatigue level?</div>
+                    <div class="severity-scale">
+                        <div class="severity-number" onclick="selectSeverity(this, 1)">1</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 2)">2</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 3)">3</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 4)">4</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 5)">5</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 6)">6</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 7)">7</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 8)">8</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 9)">9</div>
+                        <div class="severity-number" onclick="selectSeverity(this, 10)">10</div>
+                    </div>
+                    <div class="severity-labels">
+                        <span>Mild</span>
+                        <span>Moderate</span>
+                        <span>Severe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointment Section -->
+        <div class="appointment-section">
+            <h3 class="appointment-title">Discuss Your Fatigue with a Doctor</h3>
+            <p class="appointment-description">
+                Persistent fatigue can have many underlying causes. Book a consultation with one of our healthcare 
+                providers to discuss your symptoms, review your health data, and develop a personalized treatment plan.
+            </p>
+            <button class="appointment-btn" onclick="bookAppointment()">Book Appointment</button>
+        </div>
+
+        <!-- Factors Section -->
+        <div class="section">
+            <h2 class="section-title">Factors We Track Related to Fatigue</h2>
+            <p class="section-description">
+                Based on your health data, these factors may be connected to fatigue. Understanding these relationships 
+                can help guide lifestyle optimizations and discussions with healthcare providers.
+            </p>
+
+            <!-- Important Note -->
+            <div class="important-note">
+                <strong>Important:</strong> These connections are based on research patterns and your personal data. 
+                Many factors can affect each condition. Consult your healthcare provider for medical advice.
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="dna">DNA</button>
+                <button class="tab-btn" data-tab="biomarkers">Biomarkers</button>
+                <button class="tab-btn" data-tab="other">Other</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- DNA Tab -->
+                <div class="tab-panel active" id="dna">
+                    <h3 class="tab-title">Genetic Factors</h3>
+                    <p class="tab-description">
+                        Your genetic profile may influence energy metabolism, mitochondrial function, and fatigue susceptibility.
+                    </p>
+                    <div class="factors-grid">
+                        <div class="factor-item">
+                            <div class="factor-name">Energy Metabolism</div>
+                            <div class="factor-value">COMT Gene Variant</div>
+                            <span class="factor-status status-attention">May Impact Energy</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Mitochondrial Function</div>
+                            <div class="factor-value">COQ2 Gene</div>
+                            <span class="factor-status status-good">Normal Function</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">B-Vitamin Processing</div>
+                            <div class="factor-value">MTHFR Gene</div>
+                            <span class="factor-status status-attention">Reduced Efficiency</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Iron Absorption</div>
+                            <div class="factor-value">HFE Gene</div>
+                            <span class="factor-status status-good">Normal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biomarkers Tab -->
+                <div class="tab-panel" id="biomarkers">
+                    <h3 class="tab-title">Blood Biomarkers</h3>
+                    <p class="tab-description">
+                        These lab values from your recent blood work may be related to energy levels and fatigue.
+                    </p>
+                    <div class="factors-grid">
+                        <div class="factor-item">
+                            <div class="factor-name">Vitamin D</div>
+                            <div class="factor-value">22 ng/mL</div>
+                            <span class="factor-status status-attention">Below Optimal</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Iron</div>
+                            <div class="factor-value">65 µg/dL</div>
+                            <span class="factor-status status-good">Normal</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Vitamin B12</div>
+                            <div class="factor-value">380 pg/mL</div>
+                            <span class="factor-status status-normal">Normal</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Thyroid (TSH)</div>
+                            <div class="factor-value">2.8 mIU/L</div>
+                            <span class="factor-status status-normal">Normal</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Magnesium</div>
+                            <div class="factor-value">1.9 mg/dL</div>
+                            <span class="factor-status status-good">Optimal</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">CRP (Inflammation)</div>
+                            <div class="factor-value">1.2 mg/L</div>
+                            <span class="factor-status status-attention">Slightly Elevated</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Tab -->
+                <div class="tab-panel" id="other">
+                    <h3 class="tab-title">Lifestyle & Other Factors</h3>
+                    <p class="tab-description">
+                        These lifestyle patterns and health metrics may be influencing your energy levels.
+                    </p>
+                    <div class="factors-grid">
+                        <div class="factor-item">
+                            <div class="factor-name">Sleep Quality</div>
+                            <div class="factor-value">6.2/10 Average</div>
+                            <span class="factor-status status-attention">Needs Improvement</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Sleep Duration</div>
+                            <div class="factor-value">6.8 hours</div>
+                            <span class="factor-status status-attention">Below Recommended</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Exercise Frequency</div>
+                            <div class="factor-value">2-3 times/week</div>
+                            <span class="factor-status status-normal">Moderate</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Stress Level</div>
+                            <div class="factor-value">7/10 Self-reported</div>
+                            <span class="factor-status status-attention">High</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Heart Rate Variability</div>
+                            <div class="factor-value">32ms</div>
+                            <span class="factor-status status-attention">Below Average</span>
+                        </div>
+                        <div class="factor-item">
+                            <div class="factor-name">Hydration</div>
+                            <div class="factor-value">1.8L daily avg</div>
+                            <span class="factor-status status-attention">Low</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="section">
+            <h2 class="section-title">Products That May Help Based on Your Factors</h2>
+            <p class="section-description">
+                Based on your genetic profile and biomarker results, these evidence-based supplements may support energy levels.
+            </p>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-image">Product Image</div>
+                        <div class="product-details">
+                            <div class="product-name">Vitamin D3 + K2</div>
+                            <div class="product-reason">Addresses your low vitamin D (22 ng/mL)</div>
+                            <div class="product-price">$28/month</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-image">Product Image</div>
+                        <div class="product-details">
+                            <div class="product-name">B-Complex (Methylated)</div>
+                            <div class="product-reason">Optimized for your MTHFR genetic variant</div>
+                            <div class="product-price">$35/month</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-image">Product Image</div>
+                        <div class="product-details">
+                            <div class="product-name">CoQ10 + PQQ</div>
+                            <div class="product-reason">Supports mitochondrial energy production</div>
+                            <div class="product-price">$42/month</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-image">Product Image</div>
+                        <div class="product-details">
+                            <div class="product-name">Adaptogenic Blend</div>
+                            <div class="product-reason">May help with stress and energy balance</div>
+                            <div class="product-price">$38/month</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Programs Section -->
+        <div class="section">
+            <h2 class="section-title">How Our Program Areas Can Improve Fatigue</h2>
+            <p class="section-description">
+                Our evidence-based lifestyle programs address the root causes of fatigue through targeted interventions 
+                in these four key areas.
+            </p>
+            
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🥗</div>
+                        <div class="program-name">Nutrition Program</div>
+                    </div>
+                    <p class="program-description">
+                        Optimize nutrient intake to support cellular energy production and reduce inflammation that can contribute to fatigue.
+                    </p>
+                    <div class="program-benefit">
+                        <strong>May help with:</strong> Blood sugar stability, nutrient deficiencies, inflammation reduction, energy metabolism support
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🏃</div>
+                        <div class="program-name">Fitness Program</div>
+                    </div>
+                    <p class="program-description">
+                        Build cardiovascular fitness and strength while improving mitochondrial function and energy efficiency.
+                    </p>
+                    <div class="program-benefit">
+                        <strong>May help with:</strong> Mitochondrial health, cardiovascular efficiency, muscle strength, endurance, energy production
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">😴</div>
+                        <div class="program-name">Sleep Program</div>
+                    </div>
+                    <p class="program-description">
+                        Improve sleep quality and recovery patterns to support cellular repair and energy restoration.
+                    </p>
+                    <div class="program-benefit">
+                        <strong>May help with:</strong> Sleep quality improvement, recovery optimization, circadian rhythm regulation, restorative sleep
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🧘</div>
+                        <div class="program-name">Stress Management</div>
+                    </div>
+                    <p class="program-description">
+                        Reduce chronic stress and cortisol levels that can drain energy and disrupt recovery processes.
+                    </p>
+                    <div class="program-benefit">
+                        <strong>May help with:</strong> Stress reduction, cortisol regulation, nervous system balance, energy conservation
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TEST: Check if JavaScript is running on fatigue page
+        console.log('🚀 Fatigue page JavaScript is running!');
+        
+        // Symptom selection functionality - GLOBAL SCOPE
+        function selectSymptom(element, value) {
+            console.log('selectSymptom called with value:', value);
+            
+            // Remove selected class from all options
+            document.querySelectorAll('.symptom-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            console.log('Added selected class to element');
+            
+            // Show severity section if Yes or Sometimes is selected
+            const severitySection = document.getElementById('severitySection');
+            console.log('severitySection element:', severitySection);
+            
+            if (value === 'yes' || value === 'sometimes') {
+                console.log('Adding visible class to severity section');
+                severitySection.classList.add('visible');
+                console.log('Severity section classes:', severitySection.className);
+            } else {
+                console.log('Removing visible class from severity section');
+                severitySection.classList.remove('visible');
+            }
+        }
+
+        // Severity selection functionality - GLOBAL SCOPE
+        function selectSeverity(element, value) {
+            // Remove selected class from all severity numbers
+            document.querySelectorAll('.severity-number').forEach(num => {
+                num.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked number
+            element.classList.add('selected');
+            
+            console.log('Selected severity:', value);
+        }
+
+        // Appointment booking - GLOBAL SCOPE
+        function bookAppointment() {
+            alert('Redirecting to appointment booking system...');
+        }
+
+        // Ensure functions are available globally
+        window.selectSymptom = selectSymptom;
+        window.selectSeverity = selectSeverity;
+        window.bookAppointment = bookAppointment;
+
+        // Test if functions are defined
+        console.log('selectSymptom function defined:', typeof selectSymptom);
+        console.log('window.selectSymptom defined:', typeof window.selectSymptom);
+        
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded on fatigue page');
+            
+            // Add event listeners as fallback for symptom buttons
+            const symptomButtons = document.querySelectorAll('.symptom-option');
+            console.log('Found symptom buttons:', symptomButtons.length);
+            
+            symptomButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    console.log('Button clicked via event listener:', this.textContent);
+                    const value = this.textContent.toLowerCase();
+                    selectSymptom(this, value);
+                });
+                
+                // Also add cursor pointer to make it clear they're clickable
+                button.style.cursor = 'pointer';
+            });
+            
+            // Add event listeners for severity numbers
+            const severityNumbers = document.querySelectorAll('.severity-number');
+            severityNumbers.forEach(number => {
+                number.addEventListener('click', function() {
+                    const value = parseInt(this.textContent);
+                    selectSeverity(this, value);
+                });
+            });
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetTab = this.dataset.tab;
+
+                    // Remove active class from all buttons and panels
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding panel
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

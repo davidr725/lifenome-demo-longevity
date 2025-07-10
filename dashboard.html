@@ -1,0 +1,201 @@
+<!-- Dashboard Page Content -->
+<div class="page-header text-center">
+    <h1 class="page-title">My Health</h1>
+    <div class="subtitle">Samantha, 35 • Your comprehensive health overview, insights, and personalized recommendations</div>
+    <div class="profile-completion" style="display: inline-flex; align-items: center; gap: 8px; background: white; padding: 8px 16px; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <div class="completion-bar" style="width: 100px; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+            <div class="completion-fill" style="width: 85%; height: 100%; background: #7c3aed;"></div>
+        </div>
+        <span class="completion-text" style="font-size: 0.875rem; color: #6b7280;">85% Complete</span>
+    </div>
+</div>
+
+<!-- Longevity Overview -->
+<div class="section mb-4">
+    <h2 class="section-title">Longevity Overview</h2>
+    <div class="grid-4">
+        <div class="metric-card clickable-card-indicator" onclick="router.navigateTo('biological-age')" style="cursor: pointer;">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">28.3</div>
+            <div style="font-weight: 500; margin-bottom: 4px;">Biological Age (Blood)</div>
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 8px;">7 Years Younger</div>
+            <div style="color: #059669; font-size: 0.875rem;">↑ Improving</div>
+        </div>
+
+        <div class="metric-card clickable-card-indicator" onclick="router.navigateTo('biological-age-methylation')" style="cursor: pointer;">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">30.1</div>
+            <div style="font-weight: 500; margin-bottom: 4px;">Biological Age (Methylation)</div>
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 8px;">5 Years Younger</div>
+            <div style="color: #6b7280; font-size: 0.875rem;">→ Stable</div>
+        </div>
+
+        <div class="metric-card clickable-card-indicator" onclick="router.navigateTo('lifespan')" style="cursor: pointer;">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">84</div>
+            <div style="font-weight: 500; margin-bottom: 4px;">Projected Lifespan</div>
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 8px;">Above Average</div>
+            <div style="color: #059669; font-size: 0.875rem;">↑ +5.0 years gained</div>
+        </div>
+
+        <div class="metric-card clickable-card-indicator" onclick="router.navigateTo('healthspan')" style="cursor: pointer;">
+            <div style="font-size: 2rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">76</div>
+            <div style="font-weight: 500; margin-bottom: 4px;">Projected Healthspan</div>
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 8px;">Strong Health</div>
+            <div style="color: #059669; font-size: 0.875rem;">↑ +5.0 years gained</div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Alerts -->
+<div class="card mb-4">
+    <h3 style="color: #dc2626; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">⚠️ Attention Needed</h3>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="alert-item clickable-indicator" onclick="router.navigateTo('glucose')" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #fef3c7; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <span style="font-size: 1.5rem;">🩸</span>
+            <span style="flex: 1; color: #92400e;">Your glucose levels have been trending upward - Latest: 126 mg/dL</span>
+            <span style="color: #92400e;">→</span>
+        </div>
+        <div class="alert-item" onclick="HealthApp.showToast('Vitamin D analysis coming soon!')" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #fef3c7; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <span style="font-size: 1.5rem;">☀️</span>
+            <span style="flex: 1; color: #92400e;">Vitamin D remains below optimal - Consider supplementation</span>
+            <span style="color: #92400e;">→</span>
+        </div>
+    </div>
+</div>
+
+<!-- Your Current Conditions -->
+<div class="card mb-4">
+    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Your Current Conditions</h3>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="condition-item clickable-indicator" onclick="router.navigateTo('fatigue')" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <span style="font-weight: 500;">Chronic Fatigue</span>
+            <span style="color: #6b7280; font-size: 0.875rem;">Tracking • 2 weeks</span>
+        </div>
+        <div class="condition-item" onclick="HealthApp.showToast('Bloating analysis coming soon!')" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <span style="font-weight: 500;">Bloating</span>
+            <span style="color: #6b7280; font-size: 0.875rem;">Tracking • 1 week</span>
+        </div>
+        <div class="condition-item" onclick="HealthApp.showToast('Headache analysis coming soon!')" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+            <span style="font-weight: 500;">Frequent Headaches</span>
+            <span style="color: #6b7280; font-size: 0.875rem;">Tracking • 3 days</span>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="section">
+    <h2 class="section-title">Explore Your Health</h2>
+    <div class="navigation-grid">
+        <a href="#lifestyle" class="nav-card">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🎯</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Lifestyle</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px; line-height: 1.5;">
+                Action-oriented health improvements through nutrition, fitness, sleep, and stress management
+            </div>
+            <div class="nav-stats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">4</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Programs Active</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">+6.2</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Years Impact</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">85%</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Compliance</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="#body-systems" class="nav-card">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🫀</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Body Systems</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px; line-height: 1.5;">
+                System-focused health assessment of cardiovascular, metabolic, digestive, and other body systems
+            </div>
+            <div class="nav-stats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">12</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Systems</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">81</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Avg Score</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">2</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Need Attention</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="#symptoms" class="nav-card">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🔍</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Symptoms & Conditions</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px; line-height: 1.5;">
+                Problem-focused investigation of symptoms, conditions, and health concerns you're experiencing
+            </div>
+            <div class="nav-stats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">3</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Active</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">75</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Total Symptoms</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">12</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Programs</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="#lab-results" class="nav-card">
+            <div class="nav-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div class="nav-icon" style="font-size: 2rem;">🧪</div>
+                <div class="nav-title" style="font-size: 1.25rem; font-weight: 600;">Lab Results</div>
+            </div>
+            <div class="nav-description" style="color: #6b7280; margin-bottom: 16px; line-height: 1.5;">
+                Results-focused analysis of blood tests, genetic analysis, and other laboratory examinations
+            </div>
+            <div class="nav-stats" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">8</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Tests</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">Mar 15</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Latest</div>
+                </div>
+                <div class="nav-stat">
+                    <div class="nav-stat-value" style="font-size: 1.5rem; font-weight: 600; color: #7c3aed;">2</div>
+                    <div class="nav-stat-label" style="font-size: 0.75rem; color: #6b7280;">Flagged</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="flex-center" style="gap: 16px; margin-top: 2rem;">
+    <button class="action-btn" onclick="HealthApp.reportSymptom()">Report New Symptom</button>
+    <button class="action-btn" onclick="HealthApp.bookAppointment()">Book Appointment</button>
+    <button class="action-btn" onclick="HealthApp.viewPrograms()">View Programs</button>
+    <button class="action-btn" onclick="HealthApp.updateProfile()">Update Profile</button>
+</div>
+
+<style>
+.alert-item:hover {
+    background: #fde68a !important;
+}
+
+.condition-item:hover {
+    background: #f3f4f6 !important;
+}
+</style>
