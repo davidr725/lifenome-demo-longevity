@@ -541,23 +541,6 @@
             background: #7c3aed;
         }
 
-        .clickable-inline-indicator {
-            position: relative;
-        }
-
-        .clickable-inline-indicator::after {
-            content: '→';
-            color: #7c3aed;
-            font-weight: 600;
-            margin-left: 8px;
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
-        }
-
-        .clickable-inline-indicator:hover::after {
-            opacity: 1;
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 16px;
@@ -768,7 +751,7 @@
                             <div class="biomarker-value optimal">118/76</div>
                             <div class="biomarker-name">Blood Pressure</div>
                         </div>
-                        <div class="biomarker-item clickable-inline-indicator" onclick="router.navigateTo('wearable-metrics')" style="cursor: pointer;">
+                        <div class="biomarker-item" onclick="router.navigateTo('wearable-metrics')" style="cursor: pointer;">
                             <div class="biomarker-value optimal">45 ms</div>
                             <div class="biomarker-name">HRV</div>
                         </div>

@@ -250,50 +250,32 @@ body {
 }
 
 /* Clickable Element Indicators */
-.clickable-indicator::after {
-    content: '→';
-    color: #7c3aed;
-    font-weight: 600;
-    margin-left: 8px;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
+.clickable-indicator {
+    border: 2px solid #10b981 !important;
+    transition: border-color 0.2s ease;
 }
 
-.clickable-indicator:hover::after {
-    opacity: 1;
-}
-
-.clickable-card-indicator::after {
-    content: '→';
-    color: #7c3aed;
-    font-weight: 600;
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
+.clickable-indicator:hover {
+    border-color: #059669 !important;
 }
 
 .clickable-card-indicator {
-    position: relative;
+    border: 2px solid #10b981 !important;
+    transition: border-color 0.2s ease;
 }
 
-.clickable-card-indicator:hover::after {
-    opacity: 1;
+.clickable-card-indicator:hover {
+    border-color: #059669 !important;
 }
 
-.clickable-inline-indicator::after {
-    content: '→';
-    color: #7c3aed;
-    font-weight: 600;
-    margin-left: 6px;
-    opacity: 0.6;
-    font-size: 0.9em;
-    transition: opacity 0.2s ease;
+.clickable-inline-indicator {
+    border: 2px solid #10b981 !important;
+    border-radius: 6px;
+    transition: border-color 0.2s ease;
 }
 
-.clickable-inline-indicator:hover::after {
-    opacity: 1;
+.clickable-inline-indicator:hover {
+    border-color: #059669 !important;
 }
 
 /* Utility Classes */
